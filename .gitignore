@@ -25,6 +25,3 @@ nbdist/
 
 out/
 logs/
-mvnw
-mvnw.cmd
-.mvn/
