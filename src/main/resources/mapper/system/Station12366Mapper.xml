@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.system.Station12366TaxServerDao">
+	<sql id="timeSpanSql1">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			     trunc(sysdate)-1
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			  	  trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			  	 trunc(sysdate, 'yy')
+		</if>
+	</sql>
+	
+	<sql id="timeSpanSql">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			     trunc(sysdate)
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			  	  trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			  	 trunc(sysdate, 'yy')
+		</if>
+	</sql>
+	
+	<select id="getCallCount" parameterType="Map" resultType="Map" >
+		<!-- 话务总量，人工服务量，自动接听服务量-->
+		select nvl(sum(t.ldzl),0) ldzl, nvl(sum(t.rgyyfwl),0) rgyyfwl, nvl(sum(t.zdyyfwl),0) zdyyfwl
+ 		 from DB_SW12366.TJ_YYFWFX t
+ 			where 1 = 1
+		and t.rq >= <include refid="timeSpanSql"></include>
+   			and substr(t.jgbm, 1, 7) = substr(${unitCode}, 1, 7)
+	</select>
+	
+	<select id="getCallSuccess" parameterType="Map" resultType="Map" >
+		<!-- 接通率-->
+		select (case
+				when sum(c.zjrgl) is null then
+				 '100'
+				else
+				 to_char(round(sum(c.rgyyfwl) / sum(c.zjrgl) * 100, 2))
+			  end) jtl
+		 from db_sw12366.tj_yyfwfx c
+		where 1=1
+		and c.rq >=<include refid="timeSpanSql"></include>
+   			and substr(c.jgbm, 1, 7) = substr(${unitCode}, 1, 7)
+	</select>
+	
+	<select id="getCallDegree" parameterType="Map" resultType="Map" >
+		<!-- 满意率-->
+		select (case
+         when sum(c.fcmysum + c.mysum + c.ybsum + c.bmysum)  = 0 or
+              sum(c.fcmysum + c.mysum + c.ybsum + c.bmysum) is null then
+          '100'
+         else
+          to_char(round((sum(c.fcmysum + c.mysum) /
+                        sum(c.fcmysum + c.mysum + c.ybsum + c.bmysum)) * 100,
+                        2))
+       end) myl
+  		from db_sw12366.tj_yyfwfx c
+		 where 1 = 1
+		and c.rq >=<include refid="timeSpanSql"></include>
+   		 and substr(c.jgbm, 1, 7) = substr(${unitCode}, 1, 7)
+	</select>
+	
+		
+	<select id="getHotQuestion1" parameterType="Map" resultType="Map" >
+		<!-- 咨询热点 -->
+		select substr(t.bmzdname, 0, 4) yjmc,
+	       substr(t.bmzdname, 7, 10) ejmc,
+	       sum(t.slsum) sl,
+	       trunc(sum(t.slsum) / 300) sizee,
+	       min(t.bmzdcode) lxdm,
+	       '' enname
+			  from db_sw12366.sh_ywqktj t
+			 where t.tjlx = '3'	
+		and to_date(t.rq, 'yyyy/MM/dd') >= <include refid="timeSpanSql"></include>
+			 group by substr(t.bmzdname, 0, 4), substr(t.bmzdname, 7, 10)
+			having sum(t.slsum) > 2000
+			 order by sum(t.slsum) desc
+	</select>
+	
+	<select id="getHotQuestion" parameterType="Map" resultType="Map" >
+		<!-- 咨询热点 -->
+		select substr(t.bmzdname, 0, 4) yjmc,
+	       substr(t.bmzdname, 7, 10) ejmc,
+	       sum(t.slsum) sl,
+	       trunc(sum(t.slsum) / 300) sizee,
+	       min(t.bmzdcode) lxdm,
+	       '' enname
+			  from db_sw12366.sh_ywqktj t
+			 where t.tjlx = '3'
+			  and to_char(to_date('2018/1/1', 'yyyy/MM/dd'), 'yyyy-mm') = substr(t.rq, 0, 7)
+			 group by substr(t.bmzdname, 0, 4), substr(t.bmzdname, 7, 10)
+			having sum(t.slsum) > 2000
+			 order by sum(t.slsum) desc
+	</select>
+	
+	
+	<select id="getCurrentCallNum" parameterType="Map" resultType="Map" >
+		<!-- 当前来电人数 -->
+		select count(*) value 
+		  from db_sw12366.tx_call_logo t
+			  where t.inivrdt > sysdate - 10 / (60 * 24)
+			 and substr(t.unitcode, 1, 7) = substr(${unitCode}, 1, 7)
+	</select>
+</mapper>
+
+
+
+
+

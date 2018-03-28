@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<title>实体办税服务厅</title>
+<script th:src="@{/js/entityTaxServer.js}"></script>
+</head>
+<body>
+	<div style="position: relative; width: 1920px; height: 775px;">
+		<!--服务人数排行榜top5 -->
+		<div class="box_1" style="top: 75px; left: 20px">
+			<!--背景图 -->
+			<div class="box_1_back" style="background: url(/img/bg1.png);">
+				<!-- 标题 -->
+				<div class="title_1">
+					<div class="title_1_left"></div>
+					<div class="title_1_center">
+						<span class="title_1_text" id="rank_1_title">服务人数排行榜TOP5</span>
+					</div>
+					<div class="title_1_right"></div>
+				</div>
+				<!-- 数据 -->
+				<div style="width: 370px; height: 284px; float: left; margin-top: 35px; margin-left: 48px;">
+					<table class="box_table" id="rank_1_table">
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- 		业务受理总量排行榜TOP5 -->
+		<div class="box_1" style="top: 4px; left: 492px">
+			<div class="box_1_back" style="background: url(/img/bg2.png);">
+
+				<div class="title_1">
+					<div class="title_1_center" style="width: 332px; margin-left: 24px">
+						<span id="handledBusiness_title" class="title_1_text">业务受理总量排行榜TOP5</span>
+					</div>
+				</div>
+				<!-- 数据 top5-->
+				<div id="handledBusiness_rank" class="box_2_content">
+					<table id="handledBusiness_table" class="box_table">
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+				<!-- 数据饼状图-->
+				<div id="handledBusiness_pie" class="box_2_content" style="display: none;" th:include="plugin/businessHandel_pie"></div>
+			</div>
+		</div>
+		<!-- 		业务受理类型TOP5 -->
+		<div class="box_1" style="top: 4px; left: 963px">
+			<div class="box_1_back" style="background: url(/img/bg3.png);">
+
+				<div class="title_1">
+					<div class="title_1_left"></div>
+					<div class="title_1_center">
+						<span class="title_1_text" id="handledBusinessType_title">业务受理类型排行榜TOP5</span>
+					</div>
+					<div class="title_1_right"></div>
+				</div>
+				<!-- 数据 -->
+				<div style="width: 370px; height: 284px; float: left; margin-top: 35px; margin-left: 48px;">
+					<table class="box_table" id="handledBusinessType_table">
+						<tr>
+							<td class="box_table_left_1">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right_1">
+								<span class="small_size_font">xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left_1">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right_1">
+								<span class="small_size_font">xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left_1">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right_1">
+								<span class="small_size_font">xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left_1">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right_1">
+								<span class="small_size_font">xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left_1">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right_1">
+								<span class="small_size_font">xxxx</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- 		全市通办分局TOP5 -->
+		<div class="box_1" style="top: 75px; left: 1435px">
+			<div class="box_1_back" style="background: url(/img/bg4.png);">
+				<div class="title_1">
+					<div class="title_1_center" style="margin-left: 24px">
+						<span class="title_1_text" id="getCountByStaionOrBusiness_title">全市通办分局TOP5</span>
+					</div>
+				</div>
+				<!-- 数据 -->
+				<div style="width: 370px; height: 284px; float: left; margin-top: 35px; margin-left: 48px;">
+					<table class="box_table" id="getCountByStaionOrBusiness_table">
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_table_left">
+								<span>0</span>
+							</td>
+							<td class="box_table_center"></td>
+							<td class="box_table_right">
+								<span>xxxx</span>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 全市取号数量，已办理人数，等待人数 -->
+		<div style="width: 420px; height: 250px; position: absolute; top: 526px; left: 30px;">
+			<div class="div_deal_count">
+				<div class="left">
+					<span class="span_white_30">全市取号数量：</span>
+				</div>
+				<div class="right">
+					<span class="span_yellow_36" id="offerNumber">0</span>
+				</div>
+			</div>
+
+			<div class="div_deal_count">
+				<div class="left">
+					<span class="span_white_30">已办理人数：</span>
+				</div>
+				<div class="right">
+					<span class="span_yellow_36" id="handledNumber">0</span>
+				</div>
+			</div>
+			<div class="div_deal_count">
+				<div class="left">
+					<span class="span_white_30">当前等待人数：</span>
+				</div>
+				<div class="right">
+					<span class="span_yellow_36" id="waitingNumber">0</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- 办税大厅窗口情况 -->
+		<div style="width: 400px; height: 320px; position: absolute; top: 456px; left: 525px;">
+			<div id="taxServerWindowStatistics_bar_div" style="display: none; float: left; width: 100%; height: 220px;">
+				<div th:include="plugin/taxServerWindowStatistics_bar" style="float: left; width: 100%; height: 165px; margin-top: 5px;"></div>
+
+				<div style="float: left; width: 100%; height: 45px; margin-top: 5px;">
+					<table style="width: 100%; height: 100%">
+						<tr style="height: 100%">
+							<td style="width: 33.3%; text-align: center;">
+								<span class="span_yellow_36" id="openWindowNum">0</span>
+							</td>
+							<td style="width: 33.3%; text-align: center;">
+								<span class="span_white_36" id="pauseWindowNum">0</span>
+							</td>
+							<td style="width: 33.3%; text-align: center;">
+								<span class="span_white_36" id="closeWindowNum">0</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div id="taxServerWindowStatistics_line_div" th:include="plugin/taxServerWindowStatistics_line" style="display: block; float: left; width: 100%; height: 220px; padding-top: 5px;"></div>
+			<div style="float: left; width: 390px; height: 70px; margin-top: 15px; margin-left: 5px; background: url(/img/bottom_back.png)">
+				<div style="width: 240px; height: 42px; margin-left: 75px; margin-top: 14px">
+					<span class="span_white_30"> 办税大厅窗口情况 </span>
+				</div>
+			</div>
+		</div>
+
+	
+		<!--当日预约办理情况 -->
+		<div style="width: 400px; height: 255px; position: absolute; top: 511px; left: 1470px;">
+			<div style="float: left; width: 58px; height: 58px; margin-top: 73px; margin-left: 55px; background: url(/img/icon_yybl.png)"></div>
+			<div style="float: left; width: 250px; height: 76px; margin-top: 60px; margin-left: 35px;">
+				<span class="span_yellow_60" id="subScribeTodayStatistics"> 0 </span>
+			</div>
+			<div style="float: left; width: 390px; height: 70px; margin-top: 43px; margin-left: 5px; background: url(/img/bottom_back.png)">
+				<div style="width: 315px; height: 42px; margin-left: 75px; margin-top: 14px;">
+					<span class="span_white_30">当日预约办理情况 </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

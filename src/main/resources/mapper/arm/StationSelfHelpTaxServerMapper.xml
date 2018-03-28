@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.arm.StationSelfHelpTaxServerDao">
+	<sql id="timeSpanSql">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			     trunc(sysdate)-1
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			  	  trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			  	 trunc(sysdate, 'yy')
+		</if>
+	</sql>
+
+	<select id="getArmByType" parameterType="Map" resultType="Map" >
+		 select  t.DEV_BM as NAME from ywcl.gl_sbsx t
+			 where 1=1
+		 	 and t.ISUSE='1'
+		<if test="unitCode!=null and unitCode !=''">
+		 	and t.taxorg = ${unitCode}
+		</if>
+		<if test="type!=null and type=='24H'">
+			 and t.IS_24H_CN='24小时'
+		</if>
+		<if test="type!=null and type=='QSTB'">
+			 and t.QSTB='全市通办'
+		</if>
+		<if test="type!=null and type=='LEAVE'">
+			 and t.BSFS_CN &lt;&gt;'在厅式'
+		</if>
+		 order by t.DEV_BM
+	</select>
+	
+	<select id="getArmHandledCountRank" parameterType="Map" resultType="Map">
+	select nvl(sum(t.sb_fs), '0') 申报数,
+       nvl(sum(t.bs_fs), '0') 报税数,
+       nvl(sum(t.yj_fs), '0') 发票验旧,
+       nvl(sum(t.zprz_fs + t.hyrz_fs), '0') 发票认证,
+       nvl(sum(t.nsqd_fs), '0') 纳税清单打印,
+       nvl(sum(t.gspz_fs), '0') 个税凭证打印,
+       nvl(sum(t.fply_fs), '0') 发票销售,
+       nvl(sum(t.zpdk_fs + t.ppdk_fs + t.tydk_fs), '0') 发票代开
+	  from ywcl.tj_ywltjzd t
+	  where 1=1
+		and to_date( t.czsj,'yyyy/MM/dd') > <include refid="timeSpanSql"></include> 
+		<if test="unitCode!=null">
+	  	and t.swjg_dm = ${unitCode}
+		</if>
+	</select>
+
+	<select id="getArmUsedCountRank" parameterType="Map" resultType="Map">
+		 select *
+		  from (select *
+		          from (select t.dev_bh, a.dev_bm as name, sum(t.zfs) value
+		                  from ywcl.tj_ywltjzd t, ywcl.gl_sbzcxxjcb a, ywcl.gl_wdxx b
+		                 where t.dev_bh = a.dev_bh
+		                   and a.wd_id = b.wd_id
+		                   and to_date( t.czsj,'yyyy/MM/dd') >= <include refid="timeSpanSql"></include> 
+		<if test="unitCode!=null">
+	  		 				and t.swjg_dm = ${unitCode}
+		</if>
+                 			group by t.dev_bh, a.dev_bm)
+         		order by value desc)
+ 			 where value > 0
+   				and rownum &lt; 6
+	</select>
+	
+	<select id="getArmHandledCountTotal" parameterType="Map" resultType="Map">
+		select sum(t.zfs) 业务总量,
+				       sum(t.sb_fs) 申报数,
+				       sum(t.bs_fs) 报税数,
+				       sum(t.yj_fs) 发票验旧,
+				       sum(t.zprz_fs + t.hyrz_fs) 发票认证,
+				       sum(t.nsqd_fs) 纳税清单打印,
+				       sum(t.gspz_fs) 个税凭证打印,
+				       sum(t.fply_fs) 发票销售,
+				       sum(t.zpdk_fs + t.ppdk_fs + t.tydk_fs) 发票代开
+		  from ywcl.tj_ywltjzd t
+		 where to_date(t.czsj, 'yyyy/MM/dd') >=
+		       add_months(trunc(sysdate, 'mm'), -12)
+		   and to_date(t.czsj, 'yyyy/MM/dd') &lt;= trunc(sysdate, 'mm') - 1
+		<if test="unitCode !=null ">
+   		   and t.swjg_dm = ${unitCode}
+		</if>
+	</select>
+	
+	<select id="getArmHandledCountLineByBusiness" parameterType="Map" resultType="Map" >
+		select z.czsj as name,   
+		   sum(count0) count0,
+	       sum(count1) count1,
+	       sum(count2) count2,
+	       sum(count3) count3
+	  	from (
+	        select 
+		<if test="colName!=null">
+	        	${colName} 
+		</if>
+	            to_char(to_date(t.czsj, 'yyyy-MM-dd'), 'yyyy-MM') czsj
+	          from ywcl.tj_ywltjzd t
+	         where to_date(t.czsj, 'yyyy/MM/dd') >=
+	               add_months(trunc(sysdate, 'mm'), -12)
+	           and to_date(t.czsj, 'yyyy/MM/dd') &lt;= trunc(sysdate, 'mm') - 1
+		<if test="unitCode !=null ">
+   		   and t.swjg_dm = ${unitCode}
+		</if>
+	           )z
+	         group by z.czsj
+	         order by z.czsj
+	</select>
+	
+</mapper>

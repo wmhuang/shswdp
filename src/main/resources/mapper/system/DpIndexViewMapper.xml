@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.system.DpIndexViewDao">
+	<select id="getUnitNameByUnitCode" parameterType="Map" resultType="Map" >
+		<!--取号数量TOP5-->
+	<![CDATA[
+		select t.mc from db_xtwh.t_dm_gy_swjg t where t.swjg_dm=${unitCode}
+	]]>
+	</select>
+</mapper>
+
+
+
+
+

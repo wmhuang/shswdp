@@ -1,0 +1,153 @@
+<div id="station_selfHelpCountStatistics_line" style="height: 260px; width: 976.1px;"></div>
+<!-- ECharts单文件引入 -->
+<script type="text/javascript">
+	// 基于准备好的dom，初始化echarts图表
+	var option = {
+		color : [ '#26DBEB', '#CF973E', '#64FF8B', '#46A3FF' ],
+		grid : {
+		// 					y : 20,
+		// 					x : 60,
+		// 					y2 : 40
+		},
+		legend : {
+			show : true,
+			textStyle : {
+				color : 'white',
+				fontSize : 24
+			},
+			data : []
+		},
+		tooltip : {
+			show : true
+
+		},
+		xAxis : {
+			type : 'category',
+			data : [],
+			axisLabel : {
+				show : true,
+				textStyle : {
+					color : "rgb(161,207,255)",
+					// 					baseline : 'bottom',
+					fontFamily : '微软雅黑',
+					fontSize : 12
+				}
+			},
+			axisLine : {
+				show : true,
+				lineStyle : {
+					color : '#2262A7'
+				}
+			}
+		},
+		yAxis : {
+			type : 'value',
+			axisLabel : {
+				show : true,
+				textStyle : {
+					color : 'white',
+					baseline : 'bottom',
+					fontFamily : 'Impact',
+					fontSize : 16
+				}
+			},
+			splitLine : {
+				show : true,
+				lineStyle : {
+					color : '#2262A7'
+				}
+			},
+			axisLine : {
+				show : true,
+				lineStyle : {
+					color : 'rgb(38,81,360)'
+				}
+			}
+		},
+		series : [ {
+			itemStyle : {
+				normal : {
+					lineStyle : {
+						width : 3
+					}
+				}
+			},
+
+			data : [],
+			type : 'line'
+		}, {
+			itemStyle : {
+				normal : {
+					lineStyle : {
+						width : 2
+					}
+				}
+			},
+
+			data : [],
+			type : 'line'
+		}, {
+			itemStyle : {
+				normal : {
+					lineStyle : {
+						width : 2
+					}
+				}
+			},
+
+			data : [],
+			type : 'line'
+		}, {
+			itemStyle : {
+				normal : {
+					lineStyle : {
+						width : 2
+					},
+					label : {
+						show : false,
+						position : 'top',
+						textStyle : {
+							color : "white",
+							fontFamily : 'Impact',
+							fontSize : 24
+						},
+						formatter : function(a) {
+							return forInt(a.data);
+						}
+					}
+				}
+			},
+
+			data : [],
+			type : 'line'
+		} ]
+
+	};
+
+	$.ajax({
+		type : "get",
+		url : ctx + "/stationSelfHelp/getArmHandledCountTotalLine",
+		async : false,
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			option.xAxis.data = data.时间;
+			option.legend.data = data.businesNames;
+			option.series[0].name = data.businesNames[0];
+			option.series[0].data = data.total;
+			option.series[1].name = data.businesNames[1];
+			option.series[1].data = data.first;
+			option.series[2].name = data.businesNames[2];
+			option.series[2].data = data.second;
+			option.series[3].name = data.businesNames[3];
+			option.series[3].data = data.third;
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+		}
+	});
+	var chart = echarts.init(document
+			.getElementById('station_selfHelpCountStatistics_line'));
+	// 为echarts对象加载数据 
+	chart.setOption(option);
+</script>

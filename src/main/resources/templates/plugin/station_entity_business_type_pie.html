@@ -1,0 +1,85 @@
+<div id="station_entity_business_type_pie" style="width: 990px; height: 540px;"></div>
+<!-- ECharts单文件引入 -->
+<script type="text/javascript">
+	var data=[{name:'发票管理',value:'6723'},{name:'纳税申报',value:'2376'},{name:'综合服务',value:'3276'}];
+	var option = {
+// 		color : [ 'rgb(116,193,183)', 'rgb(255,156,114)' , 'rgb(114,212,25)'],
+		title : {
+			show : false,
+			x : 'center'
+		},
+		tooltip : {
+			trigger : 'item',
+			formatter : "{b} : {c} ({d}%)"
+
+		},
+		legend : {
+			show : false,
+			type : 'scroll',
+			orient : 'vertical',
+			right : 10,
+			top : 20,
+			bottom : 20,
+			data : [ "综合服务", "发票管理","纳税申报" ],
+			textStyle : {
+				color : "white",
+				fontSize : 20
+			}
+		},
+		calculable : true,
+		series : [ {
+			name : '姓名',
+			type : 'pie',
+			radius : '55%',
+			center : [ '50%', '50%' ],
+			roseType : 'area',
+			data : data,
+			itemStyle : {
+				normal : {
+					label : {
+						show : true,
+						position : 'outer',
+						formatter : function(a, b, c) {
+							return a.data.name;
+						},
+						textStyle : {
+							color : "white",
+							fontFamily : "w微软雅黑",
+							fontSize : 30
+						}
+
+					},
+					labelLine : {
+						show : true
+					}
+				}
+			}
+		} ]
+	};
+// 	$.ajax({
+// 		type : "get",
+// 		url : ctx
+// 				+ "/entityTaxServer/getHandledBusinessArea",
+// 		async : false,
+// 		data : {},
+// 		dataType : "json",
+// 		success : function(data) {
+// 			var cityValue, suburbsValue;
+// 			data = [ {
+// 				name : "中心城区",
+// 				value : data.CITY
+// 			}, {
+// 				name : "郊区",
+// 				value : data.SUBURBS
+// 			} ]
+// 			option.series[0].data=data;
+// 		},
+// 		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+// 		}
+// 	});
+	
+	var chart = echarts.init(document.getElementById('station_entity_business_type_pie'));
+	// 基于准备好的dom，初始化echarts图表
+	chart.setOption(option);
+</script>

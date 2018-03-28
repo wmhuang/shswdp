@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../static/css/public.css" th:href="@{/css/public.css}">
+<title>上海税务分局大屏展示</title>
+</head>
+<body>
+	<input id="timeSpan_input" type="hidden" th:value="${timeSpan}" />
+	<input id="unitName_input" type="hidden" th:value="${unitName}" />
+	<div class="container" style="position: relative;">
+		<!-- 	头部 -->
+		<div style="width: 100%; height: 175px">
+			<!--左上角logo -->
+			<div id="go_indexPage" onclick="go_page(this.id)"  style="display:none;position: absolute; height: 77px; width: 600px; left: 55px; top: 37px;">
+				<img style="float: left" src="/img/logo.png">
+				<div style="float: left; height: 100%">
+					<span class="span_logo" th:text="${unitName}" >上海市税务局</span>
+				</div>
+
+			</div>
+			<!--中上标题 -->
+			<div class="div_center" style="position: absolute; height: 70px; width: 1000px; left: 460px; top: 43px;">
+				<img id="title_logo" th:src="@{/img/logo.png}" src="/img/logo.png"></img>
+				<span>&nbsp;&nbsp;</span>
+				<span id="title_text" style="color: white; font-size: 50px; line-height: 70px" th:text="${unitName}"></span>
+			</div>
+			<!-- 右上角时间戳 -->
+			<div style="position: absolute; height: 140px; width: 340px; left: 1543px; top: 56px;">
+
+				<div class="div_timeSpan" style="margin-right: 40px">
+					<img id="timeSpan_D" src="/img/icon_D_1.png" th:src="@{/img/icon_D_1.png}">
+				</div>
+				<div class="div_timeSpan">
+					<img id="timeSpan_M" src="/img/icon_M_1.png" th:src="@{/img/icon_M_1.png}">
+				</div>
+				<div class="div_timeSpan">
+					<img id="timeSpan_Y" src="/img/icon_Y_1.png" th:src="@{/img/icon_Y_1.png}">
+				</div>
+				<div style="float: left; height: 70px; width: 330px; margin-top: 6px;">
+					<span style="color: white; font-size: 20px;">
+						&nbsp;&nbsp;
+						<label id="date"></label>
+						&nbsp;&nbsp;
+						<label id="week"></label>
+						&nbsp;&nbsp;
+						<label id="time"></label>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!--中部 -->
+		<div id="index" class="center_body">
+			<!--主页 -->
+			<iframe id="pageIframe" src="/view/indexPage" frameborder="0" scrolling="no" width="1920px" height="775px"> </iframe>
+		</div>
+		<!-- 尾部 -->
+		<div class="div_bottom">
+			<table>
+				<tr>
+					<td>
+						<img id="go_entityTaxServer" src="/img/nav_b_entityTaxServer_2.png" th:src="@{/img/nav_b_entityTaxServer_2.png}" />
+					</td>
+					<td>
+						<img id="go_onlineTaxServer" src="/img/nav_b_onlineTaxServer_2.png" th:src="@{/img/nav_b_onlineTaxServer_2.png}" />
+					</td>
+					<td>
+						<img id="go_selfHelpTaxServer" src="/img/nav_b_selfHelpTaxServer_2.png" th:src="@{/img/nav_b_selfHelpTaxServer_2.png}" />
+					</td>
+					<td>
+						<img id="go_taxServerStatistics12366" src="/img/nav_b_taxServerStatistics12366_2.png" th:src="@{/img/nav_b_taxServerStatistics12366_2.png}" />
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		var pages = new Array("entityTaxServer", "onlineTaxServer",
+				"selfHelpTaxServer", "taxServerStatistics12366");
+		// 底部按钮添加鼠标经过事件
+		function initBottomBtn(a) {
+			$("#go_" + a).attr("src", "/img/nav_b_" + a + "_2.png");
+			$("#go_" + a).bind("mouseover", function() {
+				this.src = "/img/nav_b_" + a + "_1.png"
+			});
+			$("#go_" + a).unbind('click').bind("click", function() {
+				go_page(this.id);
+			});
+			$("#go_" + a).bind("mouseout", function() {
+				this.src = "/img/nav_b_" + a + "_2.png"
+			});
+		}
+
+		function initSomeBottomBtn(a) {
+			for ( var i in pages) {
+				if (a != pages[i]) {
+					initBottomBtn(pages[i]);
+				} else {
+					$("#title_logo").attr("src", "/img/icon_" + a + ".png");
+					$("#go_" + a).attr("src", "/img/nav_b_" + a + "_1.png");
+					$("#go_" + a).unbind("mouseout");
+				}
+			}
+		}
+		initSomeBottomBtn();
+		function changePageStyle(a) {
+			//页面标题修改
+			//页面图标修改
+			//底部图标变亮色 移除点击和鼠标经过事件
+			//底部其他图标恢复原状
+			initSomeBottomBtn(a);
+			switch (a) {
+			case "indexPage":
+				$("#title_text").html($("#unitName_input").val());
+				$("#title_logo").attr("src", "/img/logo.png");
+				$("#go_indexPage").css("display", "none")
+				break;
+			case "entityTaxServer":
+				$("#title_text").html("实体办税服务厅");
+				$("#go_indexPage").css("display", "block")
+				break;
+			case "onlineTaxServer":
+				$("#title_text").html("网上办税服务厅");
+				$("#go_indexPage").css("display", "block")
+				break;
+			case "selfHelpTaxServer":
+				$("#title_text").html("自助办税服务终端");
+				$("#go_indexPage").css("display", "block")
+				break;
+			case "taxServerStatistics12366":
+				$("#title_text").html("12366纳税服务热线");
+				$("#go_indexPage").css("display", "block")
+				break;
+			default:
+				$("#title_text").html($("#unitName_input").val());
+			}
+		}
+
+		function pageController(a) {
+			changePageStyle(a);
+			$("#pageIframe").attr("src", "/view/" + a);
+		}
+
+		//跳转页面
+		function go_page(pageId) {
+			CURRENT_PAGE_NAME = pageId.substring(3) + "_station";
+			//pageId  为 go_pageName格式的 截取有效的pageName
+			pageController(pageId.substring(3));
+		}
+	</script>
+	<script th:src="@{/js/station/selfHelperTaxServer.js}"></script>
+	<script th:src="@{/js/station/onLineTaxServer.js}"></script>
+	<script th:src="@{/js/station/taxServer12366.js}"></script>
+	<script th:src="@{/js/station/pluginEchart.js}"></script>
+	<script th:src="@{/js/common/common.js}"></script>
+</body>
+</html>

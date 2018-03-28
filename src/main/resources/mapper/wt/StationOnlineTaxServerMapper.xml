@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.wt.StationOnlineTaxServerDao">
+	<sql id="timeSpanSql">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			     trunc(sysdate)-1
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			  	  trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			  	 trunc(sysdate, 'yy')
+		</if>
+	</sql>
+	
+	<sql id="sql1">
+		and t.sl_rq >=<include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+	     and substr(t.slswjg_dm, 1, 7) =substr(${unitCode},1,7)
+		</if>
+	</sql>
+	
+	
+	<select id="getBespeakNum" parameterType="Map" resultType="Map">
+		select count(1) yyzl, 
+	      nvl(sum(decode(zb.ists, 'Q', 1, 0)),0) kqtbyyzl, 
+	       nvl(sum(decode(zb.ists, 'Q', 0, 1)),0) bqyyzl
+			  from wsbs.t_wsbs_nsryy     yy,
+			       wsbs.T_WSBS_YYXMZB    zb,
+			       wsbs.t_wsbs_yyxmsl    sl,
+			       wsbs.t_wsbs_yydj_bsdt dt
+			 where zb.yyxm_id = sl.yyxm_id
+			   and sl.sl_id = yy.sl_id
+			   and sl.yydtdm = dt.bh
+			   and yy.xybz = 'Y'
+		and yy.lrsj >= <include refid="timeSpanSql"></include> 
+		<if test="unitCode!=null">
+			   and dt.ssqy = ${unitCode}
+		</if>
+		   
+		  
+	</select>
+	<select id="getTaxAndCominteractNum" parameterType="Map" resultType="Map">
+		select count(1) sqhdzl
+		  from db_wshd.t_wshd_sqtxxzb t
+		  where 1=1
+		and t.fssj >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+			 and t.swjg_dm = ${unitCode}
+		</if>
+	</select>
+	
+	<select id="getHanldedCount" parameterType="Map" resultType="Map">
+		select count(1) ywslzl
+			  from DB_SSSX.t_sx_sssxsq t
+			 where t.ys_bj &lt;> '8'
+			   and t.flzl_zt = '1'
+			   and t.zf_bj = '0'
+		and t.lr_sj>=<include refid="timeSpanSql"></include>
+		and t.sl_rq >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+			  	and substr(t.slswjg_dm, 1, 7) = substr(${unitCode},1,7)
+		</if>
+	</select>
+	
+	<select id="getOfferTotalCountByWeChat" parameterType="Map" resultType="Map">
+		select count(1) wxqhzl
+		  from DB_XTWH.T_XCX_QHXX t
+		 where 1=1
+		and t.lr_sj >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+		 and substr(t.swdtdm, 1, 7) = substr(${unitCode},1,7)
+		</if>
+
+	</select>
+	
+	<select id="getHandledByAreaRank" parameterType="Map" resultType="Map" >
+				 select *
+			  from (select nr.zgswj_dm,
+			               (select t.mc_j
+			                  from db_xtwh.t_dm_gy_swjg t
+			                 where t.swjg_dm = nr.zgswj_dm) name,
+			               count(1) value
+			          from wsbs.t_wsbs_nsryy     yy,
+			               wsbs.T_WSBS_YYXMZB    zb,
+			               wsbs.t_wsbs_yyxmsl    sl,
+			               wsbs.t_wsbs_yydj_bsdt dt,
+			               db_sjtb.dj_nsrxx      nr
+			         where zb.yyxm_id = sl.yyxm_id
+			           and sl.sl_id = yy.sl_id
+			           and sl.yydtdm = dt.bh
+			           and yy.djxh = nr.djxh
+			           and yy.xybz = 'Y'
+			           and zb.ists = 'Q'
+		and yy.lrsj>=<include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+						and dt.ssqy = ${unitCode}
+		</if>
+			         group by nr.zgswj_dm
+			         order by value desc)
+			 		where rownum &lt;= 5 
+	</select>
+	
+	<select id="getOfferNumByWeChatRank" parameterType="Map" resultType="Map">
+		select *
+	  from (select b.ywmc name , count(1) value
+	          from DB_XTWH.T_XCX_QHXX a, db_xtwh.t_dm_xcx_ssywdm b
+	         where a.bsywxldm = b.ywdm
+		and a.lr_sj >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+	         	 and substr(a.swdtdm, 1, 7) =substr(${unitCode},1,7)
+		</if>
+	         group by b.ywmc
+	         order by value desc)
+		 where rownum &lt;= 5
+	</select>
+	
+	<select id="getHandldedRank" parameterType="Map" resultType="Map">
+		select xm_mc name, sl value
+  from (select t.xm_dm, min(a.mc) xm_mc, count(1) sl
+          from DB_SSSX.t_sx_sssxsq t, DB_XTWH.T_DM_WT_SSSX a
+         where t.xm_dm = a.xm_dm
+           and t.ys_bj &lt;> '8'
+           and t.flzl_zt = '1'
+           and t.zf_bj='0'
+		and t.lr_sj>= <include refid="timeSpanSql"></include>
+		and t.sl_rq >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+	        and substr(t.slswjg_dm, 1, 7) =substr(${unitCode},1,7)
+		</if>
+         group by t.xm_dm
+         order by sl desc)
+ 	where rownum &lt;= 5
+	</select>
+	
+	<select id="getHandledCountRealTime"  parameterType="Map" resultType="Map">
+		select * from（select count(1) value, a.mc name
+			  from db_sssx.t_sx_sssxsq t, DB_XTWH.T_DM_WT_SSSX a
+			 where t.xm_dm = a.xm_dm
+			   and t.xm_dm in ('RCGL2008', 'RCGL1932', 'RCGL1939', 'RCGL1937')
+			   and t.ys_bj &lt;> '8'
+			   and t.flzl_zt = '1'
+			   and t.zf_bj = '0'
+		and t.lr_sj >= <include refid="timeSpanSql"></include>
+		and t.sl_rq >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+	           and substr(t.slswjg_dm, 1, 7) =substr(${unitCode},1,7)
+		</if>
+			 group by t.xm_dm, a.mc
+        union all
+        select count(1) value, '增值税发票代开' name
+          from db_wzgl.fp_dk_sq A
+         where A.DKFPLB_DM IN ('01')
+           and a.zfbz_1 = 'N'
+		and a.sqrq >= <include refid="timeSpanSql"></include>
+		<if test="unitCode!=null">
+				and a.slswjg_dm = ${unitCode}
+		</if>
+           ) z
+ order by z.value desc
+	</select>
+	
+	<select id="getHanldedCountOnLine" parameterType="Map" resultType="Map">
+		select to_char(t.sl_rq,'yyyy-mm') name, count(1) value
+			  from DB_SSSX.t_sx_sssxsq t
+			 where t.ys_bj &lt;> '8'      
+			   and t.flzl_zt = '1'
+			   and t.zf_bj = '0'
+			   and t.sl_rq >= add_months(trunc(sysdate, 'mm'),-12)
+			   and t.sl_rq &lt; trunc(sysdate, 'mm')
+		<if test="unitCode!=null">
+	         	  and substr(t.slswjg_dm, 1, 7) =substr(${unitCode},1,7)
+		</if>
+			   group by to_char(t.sl_rq,'yyyy-mm')
+			   order by to_char(t.sl_rq,'yyyy-mm')
+	</select>
+	
+	<select id="getgetHandldedTotal" parameterType="Map" resultType="Map">
+		select t.xm_dm, min(a.mc) xm_mc, count(1) value
+			  from DB_SSSX.t_sx_sssxsq t, DB_XTWH.T_DM_WT_SSSX a
+			 where t.xm_dm = a.xm_dm
+			   and t.ys_bj &lt;> '8'
+			   and t.flzl_zt = '1'
+			   and t.zf_bj = '0'
+			   and substr(t.slswjg_dm, 1, 7) =substr(${unitCode},1,7)
+			   and t.lr_sj >= <include refid="timeSpanSql"></include>
+			   and t.sl_rq >= <include refid="timeSpanSql"></include>
+			   and substr(t.slswjg_dm, 1, 7) = substr(${unitCode},1,7)
+			 group by t.xm_dm
+			 order by value desc
+	</select>
+	
+	<select id="getOnlineNum" parameterType="Map" resultType="Map">
+		select count(*) value
+ 			 from (select distinct t.djxh
+        	  from db_xtwh.t_xt_qyzh_online t, db_wzgl.dj_nsrxx a
+       			  where t.dlsj > sysdate - 10 / (60 * 24)
+         		 	 and t.djxh = a.djxh
+          			 and substr(a.zgswj_dm, 1, 7) = substr(${unitCode},1,7))
+	</select>
+</mapper>
+
+
+
+
+

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<title>上海税务大屏展示</title>
+<script th:src="@{/js/station/selfHelperTaxServer.js}"></script>
+</head>
+<body >
+	<input id="hiddenInput" type="hidden" th:value="${unitCode}" />
+	<div id="selfHelperDiv">
+		<div style="float: left; width: 458px; height: 450px; margin-left: 144px; background: url(/img/bg2.png)">
+			<!-- 标题 -->
+			<div class="title_1">
+				<div class="title_2_center">
+					<span class="title_1_text" id="station_selfHelp_1_rank">业务总量排行榜TOP5</span>
+				</div>
+			</div>
+			<!-- 数据 -->
+			<div style="width: 370px; height: 284px; float: left; margin-top: 35px; margin-left: 48px;">
+				<table class="box_table" id="station_selfHelp_1_table">
+					<tr>
+						<td class="box_table_left_1">
+							<span style="color: #FFB61C; font-size: 36px;"></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="color: #FFCC86; font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span style="color: #FFB61C; font-size: 36px;"></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="color: #FFCC86; font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span style="color: #FFB61C; font-size: 36px;"></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="color: #FFCC86; font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div style="float: left; width: 458px; height: 450px; margin-left: 73px; background: url(/img/bg3.png)">
+			<!-- 标题 -->
+			<div class="title_1">
+				<div class="title_2_center">
+					<span class="title_1_text" id="station_selfHelp_2_rank">放置点用量排行TOP5</span>
+				</div>
+			</div>
+			<!-- 数据 -->
+			<div style="width: 370px; height: 284px; float: left; margin-top: 35px; margin-left: 48px;">
+				<table class="box_table" id="station_selfHelp_2_table">
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="box_table_left_1">
+							<span></span>
+						</td>
+						<td class="box_table_center"></td>
+						<td class="box_table_right_1">
+							<span style="font-family:微软雅黑;font-size: 26px;"></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!--分局arm机分类图-->
+		<div style="float: right; width: 638px; height: 715px; margin-right: 80px;">
+			<div id="tag_0" onclick="click_tag_0()" style="cursor: pointer; text-align: center; float: left; width: 140px; height: 75px; margin-left: 0px; background: url(/img/bg_btn_2.png) no-repeat;">
+				<span class="span_white_26_h60">全部</span>
+			</div>
+			<div id="tag_1" onclick="click_tag_1()" style="cursor: pointer; text-align: center; float: left; width: 140px; height: 75px; margin-left: 20px; background: url(/img/bg_btn_1.png) no-repeat;">
+				<span class="span_white_26_h60">24小时</span>
+			</div>
+			<div id="tag_2" onclick="click_tag_2()" style="cursor: pointer; text-align: center; float: left; width: 140px; height: 75px; margin-left: 20px; background: url(/img/bg_btn_1.png) no-repeat;">
+				<span class="span_white_26_h60">全市通办</span>
+			</div>
+			<div id="tag_3" onclick="click_tag_3()" style="cursor: pointer; text-align: center; float: left; width: 140px; height: 75px; margin-left: 20px; background: url(/img/bg_btn_1.png) no-repeat;">
+				<span class="span_white_26_h60">离厅设备</span>
+			</div>
+			<div id="RAM_div" style="float: left; height: 610px; width: 100%; margin-top: 30px;">
+				<div style="width: 500px; height: 100%; margin-left: 40px; overflow-x: hidden; overflow-y: auto">
+					<table class="ARM_box_table" id="ARM_box_table" style="width: 500px; text-align: center">
+					</table>
+				</div>
+
+			</div>
+
+		</div>
+		<!--业务总量折线图  -->
+		<div style="float: left; width: 976.1px; height: 295.7px; margin-left: 144px; background: url(/img/bg_selfHelp_line.png) no-repeat;">
+			<div id="station_selfHelpCountStatistics_line" style="width: 976.1px; height: 260px; margin-top: 30px;"></div>
+		</div>
+	</div>
+	<script>
+	function 
+		setBarOption1() {
+			var chart = echarts.init(document
+					.getElementById('station_selfHelpCountStatistics_line'));
+			// 为echarts对象加载数据 
+			chart.setOption({
+				color : [ '#26DBEB', '#CF973E', '#64FF8B', '#46A3FF' ],
+				grid : {
+				// 					y : 20,
+				// 					x : 60,
+				// 					y2 : 40
+				},
+				legend : {
+					show : true,
+					textStyle : {
+						color : 'white',
+						fontSize : 24
+					},
+					data : []
+				},
+				tooltip : {
+					show : true
+
+				},
+				xAxis : {
+					type : 'category',
+					data : [],
+					axisLabel : {
+						show : true,
+						textStyle : {
+							color : "rgb(161,207,255)",
+							// 					baseline : 'bottom',
+							fontFamily : '微软雅黑',
+							fontSize : 12
+						}
+					},
+					axisLine : {
+						show : true,
+						lineStyle : {
+							color : '#2262A7'
+						}
+					}
+				},
+				yAxis : {
+					type : 'value',
+					axisLabel : {
+						show : true,
+						textStyle : {
+							color : 'white',
+							baseline : 'bottom',
+							fontFamily : 'Impact',
+							fontSize : 16
+						}
+					},
+					splitLine : {
+						show : true,
+						lineStyle : {
+							color : '#2262A7'
+						}
+					},
+					axisLine : {
+						show : true,
+						lineStyle : {
+							color : 'rgb(38,81,360)'
+						}
+					}
+				},
+				series : [ {
+					itemStyle : {
+						normal : {
+							lineStyle : {
+								width : 3
+							}
+						}
+					},
+
+					data : [],
+					type : 'line'
+				}, {
+					itemStyle : {
+						normal : {
+							lineStyle : {
+								width : 2
+							}
+						}
+					},
+
+					data : [],
+					type : 'line'
+				}, {
+					itemStyle : {
+						normal : {
+							lineStyle : {
+								width : 2
+							}
+						}
+					},
+
+					data : [],
+					type : 'line'
+				}, {
+					itemStyle : {
+						normal : {
+							lineStyle : {
+								width : 2
+							},
+							label : {
+								show : false,
+								position : 'top',
+								textStyle : {
+									color : "white",
+									fontFamily : 'Impact',
+									fontSize : 24
+								},
+								formatter : function(a) {
+									return forInt(a.data);
+								}
+							}
+						}
+					},
+
+					data : [],
+					type : 'line'
+				} ]
+
+			});
+		}
+		$(function() {
+			//加载折现图背景
+			setBarOption1();
+			
+			var unitCode = $("#hiddenInput").val();
+			//背景地图
+			$("#RAM_div").css("background",
+					"url(/img/map_" + unitCode + ".png) no-repeat");
+			//arm机分类 默认全部
+			updataArmTable("ALL");
+			//arm机处理事项排行榜
+			setArmHandledCountRank();
+			//arm机放置点用量排行榜
+			getArmUsedCountRank();
+			//折线图
+			selfHelpTaxServerLine();
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<script th:src="@{/js/station/selfHelperTaxServer.js}"></script>
+<script th:src="@{/js/station/onlineTaxServer.js}"></script>
+<script th:src="@{/js/station/taxServer12366.js}"></script>
+<script th:src="@{/js/station/pluginEchart.js}"></script>
+<title>上海税务大屏展示</title>
+</head>
+<body>
+	<div id="indexDiv">
+		<!--实体 -->
+		<div style="float: left; width: 410px; height: 670px; margin-top: 60px; margin-left: 68px">
+			<!--图标 -->
+			<div style="width: 100%; height: 97px;" class="div_center">
+				<img style="float: left" src="/img/entity_logo.png">
+			</div>
+			<!--数值 -->
+			<div style="width: 100%; height: 67px; margin-top: 40.5px;" class="div_center">
+				<span class="span_yellow_77">27,005</span>
+			</div>
+			<!--图标 -->
+			<div style="width: 100%; height: 72px; margin-top: 26.5px; background: url(/img/index_entity_1.png)"></div>
+			<!-- 			热度值 -->
+			<div style="width: 100%; height: 32px; margin-top: 22px;">
+				<img src="/img/index_entity_2.png" style="margin-left: 15px; margin-top: 3px;">
+			</div>
+			<!--表格 -->
+			<div style="width: 100%; height: 270px; margin-top: 43px" class="div_center">
+				<div style="width: 315px; height: 100%; background: url(/img/index_entity_box_bg.png)"></div>
+			</div>
+		</div>
+		<!-- 		网厅 -->
+		<div style="float: left; width: 410px; height: 700px; margin-left: 48px;">
+			<div style="width: 100%; height: 94px;" class="div_center">
+				<img src="/img/online_logo.png" />
+			</div>
+			<div style="width: 100%; height: 67px; margin-top: 33px;" class="div_center">
+				<span class="span_yellow_77" id="online_total_count"></span>
+			</div>
+			<div style="width: 100%; height: 72px; margin-top: 26px; background: url(/img/index_online_1.png)"></div>
+			<div style="width: 100%; height: 32px; margin-top: 22px;">
+				<img src="/img/index_online_2.png" style="margin-left: 15px; margin-top: 3px;">
+			</div>
+			<div style="width: 100%; height: 74px; margin-top: 17px;" class="div_center">
+				<span class="span_yellow_50" id="online_current_num"></span>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<span class="span_white_26">当前办理人数</span>
+			</div>
+			<!-- 			echarts 圆形图 -->
+			<div style="width: 100%; height: 330px;" id="online_pie"></div>
+		</div>
+		<!-- 		12366 -->
+		<div style="float: left; width: 410px; height: 700px; margin-left: 48px;">
+			<div style="width: 100%; height: 94px;" class="div_center">
+				<img src="/img/12366_logo.png" />
+			</div>
+			<div style="width: 100%; height: 67px; margin-top: 33px;" class="div_center">
+				<span class="span_yellow_77" id="call_total_num"></span>
+			</div>
+			<div style="width: 100%; height: 72px; margin-top: 26px; background: url(/img/index_12366_1.png)"></div>
+			<div style="width: 100%; height: 32px; margin-top: 22px;">
+				<img src="/img/index_12366_2.png" style="margin-left: 15px; margin-top: 3px;">
+			</div>
+			<div style="width: 100%; height: 74px; margin-top: 17px;" class="div_center">
+				<span class="span_yellow_50" id="call_current_num"></span>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<span class="span_white_26">当前来电</span>
+			</div>
+			<!-- 			echarts 圆形图 -->
+			<div style="width: 100%; height: 330px;" id="index_12366_pie"></div>
+		</div>
+		<!-- 		自助 -->
+		<div style="float: left; width: 410px; height: 670px; margin-top: 60px; margin-left: 68px">
+			<!-- 			图标 -->
+			<div style="width: 100%; height: 97px;" class="div_center">
+				<img style="float: left" src="/img/selfhelper_logo.png">
+			</div>
+			<!-- 			数值 -->
+			<div style="width: 100%; height: 67px; margin-top: 40.5px;" class="div_center">
+				<span class="span_yellow_77" id="entity_total_count" ></span>
+			</div>
+			<!-- 			图标 -->
+			<div style="width: 100%; height: 72px; margin-top: 26.5px; background: url(/img/index_selfhelper_1.png)"></div>
+			<!-- 			热度值 -->
+			<div style="width: 100%; height: 32px; margin-top: 22px;">
+				<img src="/img/index_selfhelper_2.png" style="margin-left: 15px; margin-top: 3px;">
+			</div>
+			<!-- 			echarts 圆形图 -->
+			<div style="width: 100%; height: 330px; margin-top: 20px;" id="selfhelper_pie"></div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			//网厅 处理业务量总人数
+			getHanldedCount();
+			//网厅 当前在线人数
+			getOnlineNum();
+			//网厅 环形图
+			getBusinessTypePersent();
+			
+			//12366
+			getCallCountTotal();
+			getCurrentCallNum();
+			getQuestionTypePersent();
+			
+			//自助办税终端
+			getIndexTotalCountAndPieEcharts();
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<div id="businessHandel_pie" style="width: 370px; height: 284px;"></div>
+<!-- ECharts单文件引入 -->
+<script type="text/javascript">
+	var data;
+	var option = {
+		color : [ 'rgb(116,193,183)', 'rgb(255,156,114)' ],
+		title : {
+			show : false,
+			x : 'center'
+		},
+		tooltip : {
+			trigger : 'item',
+			formatter : "{b} : {c} ({d}%)"
+
+		},
+		legend : {
+			show : true,
+			type : 'scroll',
+			orient : 'vertical',
+			right : 10,
+			top : 20,
+			bottom : 20,
+			data : [ "中心城区", "郊区" ],
+			textStyle : {
+				color : "white",
+				fontSize : 20
+			}
+		},
+		series : [ {
+			name : '姓名',
+			type : 'pie',
+			radius : '55%',
+			center : [ '50%', '50%' ],
+			data : data,
+			itemStyle : {
+				normal : {
+					label : {
+						show : true,
+						position : 'outer',
+						formatter : function(a, b, c) {
+							var _value = a.data.value;
+							return forInt(_value);
+						},
+						textStyle : {
+							color : "#FFB61C",
+							fontFamily : "Impact",
+							fontSize : 24
+						}
+
+					},
+					labelLine : {
+						show : true
+					}
+				}
+			}
+		} ]
+	};
+	$.ajax({
+		type : "get",
+		url : ctx
+				+ "/entityTaxServer/getHandledBusinessArea",
+		async : false,
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			var cityValue, suburbsValue;
+			data = [ {
+				name : "中心城区",
+				value : data.CITY
+			}, {
+				name : "郊区",
+				value : data.SUBURBS
+			} ]
+			option.series[0].data=data;
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+		}
+	});
+	
+	var chart = echarts.init(document.getElementById('businessHandel_pie'));
+	// 基于准备好的dom，初始化echarts图表
+	chart.setOption(option);
+</script>
