@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.css.nsfw.dp.dao.system.Station12366TaxServerDao;
+import com.css.nsfw.dp.dao.nfpt.Station12366TaxServerDao;
 import com.css.nsfw.dp.utils.Utils;
 
 @Component
@@ -72,11 +71,17 @@ public class Station12366TaxServerService {
 		int oLength = o.size();
 		// 其他的业务量
 
+		int otherCount=0;
+		
 		// 临时map
 		Map<String, Long> tempMap = new HashMap<>();
 
 		for (int i = 0; i < oLength; i++) {
 			Map one = (Map) o.get(i);
+			if(i>4) {
+				otherCount+=Long.parseLong( one.get("SL").toString());
+				continue;
+			}
 
 			Map<String, Object> seriesData = new HashMap<>();
 
@@ -84,7 +89,7 @@ public class Station12366TaxServerService {
 			seriesData.put("value", one.get("SL"));
 			outsideData.add(seriesData);
 
-			// 处理内部圈圈数据
+			// 处理内部圈圈数据 暂时未显示
 			String tempName = (String) one.get("YJMC");
 			Long tempCount = Long.parseLong(one.get("SL").toString());
 			if (tempMap.get(tempName) != null) {
@@ -92,7 +97,13 @@ public class Station12366TaxServerService {
 			} else {
 				tempMap.put(tempName, tempCount);
 			}
+			
 		}
+		//添加数据 其他
+		Map<String, Object> seriesOtherData = new HashMap<>();
+		seriesOtherData.put("name", "其他");
+		seriesOtherData.put("value", otherCount);
+		outsideData.add(seriesOtherData);
 		
 		//map转list
 		insideData= Utils.rowToColSmall(tempMap);

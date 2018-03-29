@@ -153,7 +153,7 @@ public class StationSelfHelpTaxServerService {
 		if (tempTotalCount == 0L) {
 			List<Map<String, Object>> tempList = new ArrayList<>();
 			Map<String, Object> tempMap = new HashMap<String, Object>();
-			tempMap.put("name", "当天未产生数据");
+			tempMap.put("name", "未产生数据");
 			tempMap.put("value", 0);
 			tempList.add(tempMap);
 			result.put("list", tempList);

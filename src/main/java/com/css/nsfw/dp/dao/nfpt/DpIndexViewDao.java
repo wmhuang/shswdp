@@ -1,4 +1,4 @@
-package com.css.nsfw.dp.dao.system;
+package com.css.nsfw.dp.dao.nfpt;
 
 import java.util.List;
 import java.util.Map;

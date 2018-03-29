@@ -13,19 +13,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan(basePackages = { "com.css.nsfw.dp.dao.system" }, sqlSessionFactoryRef = "sqlSessionFactory2")
-public class MybatisDbSystemConfig {
+@MapperScan(basePackages = { "com.css.nsfw.dp.dao.nfpt" }, sqlSessionFactoryRef = "sqlSessionFactory2")
+public class MybatisDbNfptConfig {
 	@Autowired
-	@Qualifier("systemDataSource")
-	private DataSource systemDataSource;
+	@Qualifier("nfptDataSource")
+	private DataSource nfptDataSource;
 
 	@Bean
 	public SqlSessionFactory sqlSessionFactory2() throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-		factoryBean.setDataSource(systemDataSource);
+		factoryBean.setDataSource(nfptDataSource);
 		factoryBean
 				.setMapperLocations(new PathMatchingResourcePatternResolver()
-						.getResources("classpath:mapper/system/*.xml"));
+						.getResources("classpath:mapper/nfpt/*.xml"));
 		return factoryBean.getObject();
 
 	}

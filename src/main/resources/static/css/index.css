@@ -344,6 +344,7 @@
 	height: 40px;
 	margin-right: 20px;
 	background: url(/img/bg_entity_span_1.png);
+	cursor: pointer;
 }
 
 .entity_top_box span {

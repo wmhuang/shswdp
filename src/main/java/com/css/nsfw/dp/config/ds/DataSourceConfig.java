@@ -18,8 +18,8 @@ public class DataSourceConfig {
 	}
 
 	//
-	@Bean(name = "systemDataSource")
-	@ConfigurationProperties(prefix = "system.datasource")
+	@Bean(name = "nfptDataSource")
+	@ConfigurationProperties(prefix = "nfpt.datasource")
 	// application.properteis中对应属性的前缀
 	public DataSource dataSource2() {
 		return DataSourceBuilder.create().build();

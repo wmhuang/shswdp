@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.css.nsfw.dp.dao.system.Station12366TaxServerDao">
+<mapper namespace="com.css.nsfw.dp.dao.nfpt.Station12366TaxServerDao">
 	<sql id="timeSpanSql1">
 		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
 			     trunc(sysdate)-1

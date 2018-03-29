@@ -2,11 +2,8 @@ package com.css.nsfw.dp.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -112,7 +109,8 @@ public class StationOnlineTaxServerService {
 		int oLength = o.size();
 		// 其他的业务量
 		int otherCount = 0;
-		if (oLength > 1) {
+		
+		if (oLength > 0) {
 			for (int i = 0; i < oLength; i++) {
 				Map one = (Map) o.get(i);
 				if (i > 4) {
@@ -127,10 +125,18 @@ public class StationOnlineTaxServerService {
 					resultData.add(seriesData);
 				}
 			}
-			Map<String, Object> seriesOtherData = new HashMap<>();
-			seriesOtherData.put("name", "其他");
-			seriesOtherData.put("value", otherCount);
-			resultData.add(seriesOtherData);
+			if(otherCount>0) {
+				Map<String, Object> seriesOtherData = new HashMap<>();
+				seriesOtherData.put("name", "其他");
+				seriesOtherData.put("value", otherCount);
+				resultData.add(seriesOtherData);	
+			}
+		}else {
+			//没有数据
+			Map<String, Object> seriesZeroData = new HashMap<>();
+			seriesZeroData.put("name", "未产生数据");
+			seriesZeroData.put("value", 0);
+			resultData.add(seriesZeroData);
 		}
 		return resultData;
 	}

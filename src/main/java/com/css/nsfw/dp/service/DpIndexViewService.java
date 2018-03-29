@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.css.nsfw.dp.dao.system.DpIndexViewDao;
+import com.css.nsfw.dp.dao.nfpt.DpIndexViewDao;
 
 @Component
 public class DpIndexViewService {

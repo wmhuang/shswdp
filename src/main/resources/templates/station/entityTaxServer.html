@@ -281,7 +281,7 @@
 		</div>
 		<div style="width: 100%; height: 708px">
 			<!-- 中部 -->
-			<div id="entity_window_box" style="float: left; width: 66%; height: 100%; overflow-y: auto"></div>
+			<div id="entity_window_box" style="float: left; position: relative; width: 66%; height: 100%; overflow-y: auto"></div>
 			<div style="float: left; width: 30%; height: 748px; margin-top: -40px; margin-left: 40px;" class="div_center">
 				<!-- 详细信息 -->
 				<div style="width: 465px; height: 748px; background: url(/img/bg_window_detail.png)">
@@ -374,6 +374,13 @@
 	</div>
 
 	<script>
+		//滚动条距离
+		var scrollLength = 0;
+		var w = document.getElementById("entity_window_box");
+		w.onscroll = function(e) {
+			scrollLength = w.scrollTop;
+		}
+
 		$
 				.ajax({
 					url : ctx + "/stationEntity/getEntityWindows",
@@ -411,13 +418,15 @@
 				clear_detail();
 				return;
 			}
+			
+			//确定选择框横坐标 纵坐标的位置。
 			var X = $('#' + id).offset().left - 24;
-			var Y = $('#' + id).offset().top - 24;
+			var Y = $('#' + id).offset().top - 64 + scrollLength;
 			//添加选中窗口 详细信息
 			$("#select_box").remove();
-			$('html')
+			$('#entity_window_box')
 					.append(
-							"<div id ='select_box' style='position:absolute;width:102px;height:118px;top:"
+							"<div id ='select_box' style='position:absolute;z-index:1000;width:102px;height:118px;top:"
 									+ Y
 									+ "px;left:"
 									+ X
@@ -427,13 +436,13 @@
 		function clear_detail() {
 			//清理detail窗口;
 		}
-		$('#page_1').unbind('click').bind('click',function(){
-			 $('#entityDiv2').hide();	
-			 $('#entityDiv1').show();
+		$('#page_1').unbind('click').bind('click', function() {
+			$('#entityDiv2').hide();
+			$('#entityDiv1').show();
 		})
-		$('#page_2').unbind('click').bind('click',function(){
-			 $('#entityDiv1').hide();	
-			 $('#entityDiv2').show();
+		$('#page_2').unbind('click').bind('click', function() {
+			$('#entityDiv1').hide();
+			$('#entityDiv2').show();
 		})
 	</script>
 </body>
