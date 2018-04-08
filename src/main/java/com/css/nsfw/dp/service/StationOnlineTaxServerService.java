@@ -104,7 +104,7 @@ public class StationOnlineTaxServerService {
 		params.put("timeSpan", timeSpan);
 		params.put("unitCode", unitCode);
 		// 分组查询的额全部数据 每个业务类型的总数据量
-		List o = stationOnlineTaxServerDao.getgetHandldedTotal(params);
+		List o = stationOnlineTaxServerDao.getHandldedTotal(params);
 		// 类型条数
 		int oLength = o.size();
 		// 其他的业务量

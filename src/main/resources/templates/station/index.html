@@ -143,10 +143,12 @@
 
 		//跳转页面
 		function go_page(pageId) {
+			
 			CURRENT_PAGE_NAME = pageId.substring(3) + "_station";
 			//pageId  为 go_pageName格式的 截取有效的pageName
 			pageController(pageId.substring(3));
 		}
+		
 	</script>
 	<script th:src="@{/js/station/selfHelperTaxServer.js}"></script>
 	<script th:src="@{/js/station/onLineTaxServer.js}"></script>

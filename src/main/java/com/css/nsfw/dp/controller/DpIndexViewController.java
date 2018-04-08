@@ -1,4 +1,4 @@
-package com.css.nsfw.dp.web.controller;
+package com.css.nsfw.dp.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

@@ -43,5 +43,5 @@ public interface StationOnlineTaxServerDao {
 	Map getOnlineNum(Map<String, Object> params);
 
 	// 业务受理类型数据量
-	List getgetHandldedTotal(Map<String, Object> params);
+	List getHandldedTotal(Map<String, Object> params);
 }
