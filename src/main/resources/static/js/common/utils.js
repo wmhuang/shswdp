@@ -2,7 +2,7 @@
 var ctx = "http://" + window.location.host;
 // 全局变量 保存当前访问页面地址
 var CURRENT_PAGE_NAME = "indexPage_station";
- 
+
 // 格式化数值（12122）为12,122的字符串
 function forInt(num) {
 	var result = [], counter = 0;
@@ -16,7 +16,7 @@ function forInt(num) {
 	}
 	return result.join('');
 }
-// 排行榜表格填充
+// 排行榜表格填充5
 function pushRankTable(tableId, intA, intB, data, isIndex) {
 	if (typeof (isIndex) == 'undefined') {
 		// 首次加载
@@ -41,7 +41,7 @@ function pushRankTable(tableId, intA, intB, data, isIndex) {
 
 		// 通过年月日加载
 		for (var i = 0, l = data.length; i < l; i++) {
-			if(data[i].VALUE>0){
+			if (data[i].VALUE > 0) {
 				$("#pageIframe").contents().find(
 						"#" + tableId + " tr:eq(" + i + ") td:eq(" + intA
 								+ ") span").html(forInt(data[i].VALUE));
@@ -53,8 +53,44 @@ function pushRankTable(tableId, intA, intB, data, isIndex) {
 	}
 }
 
- 
-//ajax设置加载动画
+// 排行榜表格填充10
+function pushRankTable10(tableId, intA, intB, data, isIndex) {
+	if (typeof (isIndex) == 'undefined') {
+		// 首次加载 无需清理表格
+		for (var i = 0, l = data.length; i < l; i++) {
+			if (data[i].VALUE > 0) {
+				$("#" + tableId + " tr:eq(" + i + ") td:eq(" + intA + ") span")
+						.html(forInt(data[i].VALUE));
+				$("#" + tableId + " tr:eq(" + i + ") td:eq(" + intB + ") span")
+						.html(data[i].NAME);
+			}
+		}
+	} else {
+		// 清空表格
+		for (var i = 0; i < 10; i++) {
+			$("#pageIframe").contents().find(
+					"#" + tableId + " tr:eq(" + i + ") td:eq(" + intA
+							+ ") span").html('');
+			$("#pageIframe").contents().find(
+					"#" + tableId + " tr:eq(" + i + ") td:eq(" + intB
+							+ ") span").html('');
+		}
+
+		// 通过年月日加载
+		for (var i = 0, l = data.length; i < l; i++) {
+			if (data[i].VALUE > 0) {
+				$("#pageIframe").contents().find(
+						"#" + tableId + " tr:eq(" + i + ") td:eq(" + intA
+								+ ") span").html(forInt(data[i].VALUE));
+				$("#pageIframe").contents().find(
+						"#" + tableId + " tr:eq(" + i + ") td:eq(" + intB
+								+ ") span").html(data[i].NAME);
+			}
+		}
+	}
+}
+
+// ajax设置加载动画
 $(function() {
 	$.ajaxSetup({
 		layerIndex : -1,

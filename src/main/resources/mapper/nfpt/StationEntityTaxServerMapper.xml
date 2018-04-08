@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.css.nsfw.dp.dao.nfpt.StationEntityTaxServerDao">
+
+	<sql id="timeSpanSql">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			trunc(sysdate)
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			trunc(sysdate, 'yy')
+		</if>
+	</sql>
+
+	<select id="getEntityWindows" resultType="Map">
+		select distinct t.ck_dm, decode(t.ck_zt,
+		'1',
+		'open',
+		'2',
+		'open',
+		'3',
+		'open',
+		'4',
+		'open',
+		'open') ck_zt,
+		a.mc dtmc, t.dt_dm
+		from
+		db_zxxt.T_DT_CKSSTJ t,
+		db_zxxt.T_DM_DT a,
+		db_xtwh.t_dm_gy_swjg b
+		where
+		1=1
+
+		and t.swfj_dm = #{unitCode}
+		<if test="busiType!='all'">
+			and t.dtywdl_dm = #{busiType}
+		</if>
+		and t.sws_dm = b.swjg_dm(+)
+		and t.dt_dm = a.dt_dm(+)
+		order by
+		to_number(t.ck_dm)
+	</select>
+
+	<select id="getFwsxphb" resultType="Map">
+		select z.mc name, count(1) value
+		from (select y.mc
+		from
+		DB_ZXXT.T_DT_DTBLQK t, T_DM_DTYWXL y
+		where 1 = 1
+		and substr(t.swfj_dm,
+		0, 7) = substr(#{unitCode},0,7)
+		and substr(y.dt_dm, 0, 7) =
+		substr(#{unitCode},0,7)
+		and t.dtywxl_dm = y.dtywxl_dm
+		and t.JSSJ >
+		<include refid="timeSpanSql"></include>
+		) z
+		group by z.mc
+		having count(1) > 0
+		order by count(1) desc
+	</select>
+
+	<select id="getFwmxphb" resultType="Map">
+		select r.mc name, z.value
+		from (select t.czry_dm name, count(*) value
+		from db_zxxt.t_dt_dtblqk t
+		where 1 = 1
+		and substr(t.swfj_dm, 0, 7) =
+		substr(#{unitCode},0,7)
+		and t.JSSJ >
+		<include refid="timeSpanSql"></include>
+		group by t.czry_dm) z,
+		db_zxxt.T_DM_DTRY r
+		where z.value > 0
+		and z.name =
+		r.dtry_dm
+		and substr(r.sws_dm, 0, 7) = substr(#{unitCode},0,7)
+		order by
+		z.value desc
+	</select>
+
+
+	<select id="getDetailInfo" resultType="Map">
+		select c.mc rymc,
+		d.mc
+		dtmc,
+		a.ck_dm ckhm,
+		to_char(a.dlsj, 'HH24:mm') dlsj,
+		a.gzsc,
+		a.xxsc,
+		b.ywzl,
+		b.yjhzs,
+		b.ywpjsc,
+		trunc(b.ywzl / a.gzsc,2) fhl
+		from (select
+		t.dt_dm, t.ck_dm, t.dtry_dm, t.gzsc, t.dlsj,t.xxsc
+		from T_DT_CKSSTJ t
+		where t.dt_dm = ${dtdm}
+		and t.ck_dm = ${ckdm}
+		and rownum = 1) a,
+		(select
+		t.dt_dm,
+		t.ck_dm,
+		sum(t.ywzl) ywzl,
+		sum(t.yjhzs) yjhzs,
+		trunc(sum(t.ywzl *
+		t.ywpjsc) / sum(t.ywzl),2) ywpjsc
+		from T_DT_CKSSTJ t
+		where t.dt_dm =
+		${dtdm}
+		and t.ck_dm = ${ckdm}
+		group by t.dt_dm, t.ck_dm) b,
+		T_DM_DTRY c,
+		T_DM_DT d
+		where a.dt_dm = b.dt_dm
+		and a.ck_dm = b.ck_dm
+		and a.dtry_dm =
+		c.dtry_dm
+		and a.dt_dm = d.dt_dm
+	</select>
+
+	<select id="getPieEcharts" resultType="Map">
+		select d.mc name, z.value
+		from (select t.DTYWDL_DM name, count(*) value
+		from db_zxxt.t_dt_dtblqk t
+		where substr(t.swfj_dm, 0, 7) =
+		substr(#{unitCode},0,7)
+		and t.JSSJ >
+		<include refid="timeSpanSql"></include>
+		group by t.DTYWDL_DM) z,
+		T_DM_DTYWDL d
+		where z.name = d.dtywdl_dm
+		order
+		by z.value desc
+	</select>
+
+	<select id="getIndexEntityRank" resultType="Map">
+		select *
+		from (select
+		d.mc, t.yblsl, t.dqddrs, t.yjddsj
+		from T_DT_DTQHTJ
+		t, T_DM_DTYWDL d
+		where substr(t.dt_dm, 0, 7) = substr(#{unitCode},0,7)
+		and t.dtywdl_dm =
+		d.dtywdl_dm
+		order by t.yblsl desc) z
+		where rownum &lt; 6
+	</select>
+
+	<select id="getTotalCount" resultType="Map">
+		select count(1) value
+		from T_DT_DTBLQK t
+		where substr(t.swfj_dm, 0, 7) =
+		substr(#{unitCode},0,7)
+		and t.jssj >
+		<include refid="timeSpanSql"></include>
+	</select>
+</mapper>
+
+
+
+
+

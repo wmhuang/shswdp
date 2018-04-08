@@ -1,19 +1,12 @@
 function getFooterTime() {
 	var datetime = new Date();
 	var year = datetime.getFullYear();
-	var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1)
-			: datetime.getMonth() + 1;
-	var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime
-			.getDate();
-	var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime
-			.getHours();
-	var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes()
-			: datetime.getMinutes();
-	var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds()
-			: datetime.getSeconds();
-	var today = new Array('\u661f\u671f\u65e5', '\u661f\u671f\u4e00',
-			'\u661f\u671f\u4e8c', '\u661f\u671f\u4e09', '\u661f\u671f\u56db',
-			'\u661f\u671f\u4e94', '\u661f\u671f\u516d');
+	var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+	var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+	var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+	var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+	var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+	var today = new Array('\u661f\u671f\u65e5', '\u661f\u671f\u4e00', '\u661f\u671f\u4e8c', '\u661f\u671f\u4e09', '\u661f\u671f\u56db', '\u661f\u671f\u4e94', '\u661f\u671f\u516d');
 	var week = today[datetime.getDay()];
 	$("#date").html(year + "\u5e74" + month + "\u6708" + date + "\u65e5");
 	$("#time").html(hour + ":" + minute);
@@ -22,19 +15,12 @@ function getFooterTime() {
 function getFooter() {
 	var datetime = new Date();
 	var year = datetime.getFullYear();
-	var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1)
-			: datetime.getMonth() + 1;
-	var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime
-			.getDate();
-	var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime
-			.getHours();
-	var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes()
-			: datetime.getMinutes();
-	var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds()
-			: datetime.getSeconds();
-	var today = new Array('\u661f\u671f\u65e5', '\u661f\u671f\u4e00',
-			'\u661f\u671f\u4e8c', '\u661f\u671f\u4e09', '\u661f\u671f\u56db',
-			'\u661f\u671f\u4e94', '\u661f\u671f\u516d');
+	var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+	var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+	var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+	var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+	var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+	var today = new Array('\u661f\u671f\u65e5', '\u661f\u671f\u4e00', '\u661f\u671f\u4e8c', '\u661f\u671f\u4e09', '\u661f\u671f\u56db', '\u661f\u671f\u4e94', '\u661f\u671f\u516d');
 	var week = today[datetime.getDay()];
 	$("#date").html(year + "\u5e74" + month + "\u6708" + date + "\u65e5");
 	$("#time").html(hour + ":" + minute);
@@ -55,17 +41,17 @@ function setTimeSpan(timeSpan) {
 		success : function(data) {
 			// 刷新当前页面的div 通过全局变量CURRENT_PAGE_NAME判断 传入的参数大家请随意
 			switch (CURRENT_PAGE_NAME) {
-			
-			case "indexPage_station":
-				// 网厅 处理业务量总人数
-				getHanldedCount("1");
 
-				// 网厅 环形图
+			case "indexPage_station":
+				// 实体
+				getTotalCount("1");
+
+				// 网厅  
+				getHanldedCount("1");
 				getBusinessTypePersent("1");
 
 				// 12366
 				getCallCountTotal("1");
-
 				getQuestionTypePersent("1");
 
 				// arm
@@ -73,6 +59,14 @@ function setTimeSpan(timeSpan) {
 
 				break;
 			case "entityTaxServer_station":
+				// 服务事项排行榜
+				getFwsxphb("1");
+				// 服务明星排行榜
+				getFwmxphb("1");
+				// 第一张中间饼图
+				pieEcharts("1");
+				// 预约总量 跨区通办
+				getYyzlTbzl("1");
 				break;
 			case "onlineTaxServer_station":
 				// 数值Map

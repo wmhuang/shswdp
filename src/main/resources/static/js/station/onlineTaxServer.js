@@ -105,4 +105,271 @@ function getOnlineNum(isIndex) {
 	})
 }
 
+function handledByOtherArea(isIndex) {
+	$
+			.ajax({
+				type : "get",
+				url : ctx + "/stationOnline/getAreaMaps",
+				async : false,
+				data : {},
+				dataType : "json",
+				success : function(data) {
 
+					var arr = new Array(data.KQTBYYZL, data.BQYYZL);
+					var chart;
+					if (typeof (isIndex) == 'undefined') {
+						chart = echarts.init(document
+								.getElementById('handledByOtherArea_bar'));
+					} else {
+						var obj = document.getElementById("pageIframe").contentWindow.document
+								.getElementById("handledByOtherArea_bar");
+						chart = echarts.init(obj);
+					}
+
+					// 为echarts对象加载数据
+					chart.setOption({
+						calculable : false,
+						xAxis : [ {
+							show : false,
+							type : 'value',
+							boundaryGap : [ 0, 0.01 ]
+						} ],
+						yAxis : [ {
+							show : true,
+							type : 'category',
+							zlevel : 1,
+							axisLine : {
+								show : false
+							},
+							axisTick : {
+								show : false
+							},
+							axisLabel : {
+								margin : -60,
+								textStyle : {
+									color : 'white',
+									fontSize : 24
+								}
+							},
+							data : [ '跨区', '本区' ]
+						} ],
+						grid : {
+							y : 10,
+							x : 35,
+							x2 : 0,
+							y2 : 15,
+							width : 250
+						},
+						series : [ {
+							type : 'bar',
+							data : arr,
+							barWidth : 41.9,
+							barMinHeight : 70,
+							itemStyle : {
+								normal : {
+									color : 'rgba(87,153,255,0.7)',
+									label : {
+										show : true,
+										position : 'right',
+										formatter : function(a) {
+											return forInt(a.data);
+										},
+										textStyle : {
+											color : '#FFB61C',
+											align : 'left',
+											baseline : 'bottom',
+											fontFamily : 'Impact',
+											fontSize : 36
+										}
+									}
+								}
+							}
+						} ]
+					});
+
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+				}
+			});
+
+}
+
+function stationOnlineTaxServerCountLine(isIndex) {
+	$
+			.ajax({
+				type : "get",
+				url : ctx + "/stationOnline/getHanldedCountOnLine",
+				async : false,
+				data : {},
+				dataType : "json",
+				success : function(data) {
+					var xData = new Array();
+					var dData = new Array();
+					for ( var i in data) {
+						xData[i] = data[i].NAME;
+						dData[i] = data[i].VALUE;
+					}
+					var chart;
+					if (typeof (isIndex) == 'undefined') {
+						chart = echarts
+								.init(document
+										.getElementById('station_onlineTaxServerCount_line'));
+					} else {
+						var obj = document.getElementById("pageIframe").contentWindow.document
+								.getElementById("station_onlineTaxServerCount_line");
+						chart = echarts.init(obj);
+					}
+					chart.setOption({
+						title : {
+							text : '网上税务服务业务总量近12月趋势图',
+							padding : [ 5, 5, 5, 50 ],
+							textStyle : {
+								fontFamily : '微软雅黑',
+								color : 'white',
+								fontSize : 20
+							}
+						},
+						grid : {
+							y : 50,
+							x : 60,
+							y2 : 30
+						// width : 370
+						},
+						tooltip : {
+							show : true,
+							textStyle : {
+								fontFamily : 'Impact',
+								color : 'white',
+								fontSize : 20
+							}
+
+						},
+						xAxis : {
+							type : 'category',
+							data : xData,
+							axisLabel : {
+								show : true,
+								margin : 30,
+								textStyle : {
+									color : "white",
+									baseline : 'bottom',
+									fontFamily : 'Impact',
+									fontSize : 20
+								}
+							},
+							axisLine : {
+								show : true,
+								lineStyle : {
+									color : 'white'
+								}
+							}
+						},
+						yAxis : {
+							type : 'value',
+							axisLabel : {
+								show : true,
+								textStyle : {
+									color : 'white',
+									baseline : 'bottom',
+									fontFamily : 'Impact',
+									fontSize : 16
+								}
+							},
+							splitLine : {
+								show : true,
+								lineStyle : {
+									color : 'white'
+								}
+							},
+							axisLine : {
+								show : true,
+								lineStyle : {
+									color : 'white'
+								}
+							}
+						},
+						series : [ {
+							itemStyle : {
+								normal : {
+									lineStyle : {
+										color : 'rgb(255,156,114)',
+										width : 5
+									},
+									label : {
+										show : true,
+										position : 'top',
+										textStyle : {
+											color : "#FFB61C",
+											fontFamily : 'Impact',
+											fontSize : 24
+										},
+										formatter : function(a) {
+											return forInt(a.data);
+										}
+									}
+								}
+							},
+
+							data : dData,
+							type : 'line'
+						} ]
+
+					});
+
+				}
+			});
+}
+//主页网厅环形图
+function getBusinessTypePersent(isIndex) {
+	var option = {
+		color : [ '#FF9D35', '#AE62E0', '#E3E067', '#5BDBFF', '#7F9FFF', '#FFC500', '#3CB371', '#00FA9A', '#FF69B4' ],
+		tooltip : {
+			trigger : 'item',
+			formatter : "{d}%<br/>{b}  "
+		},
+		calculable : false,
+		series : [ {
+			name : '业务类型',
+			type : 'pie',
+			radius : [ 80, 110 ],
+			// for funnel
+			x : '60%',
+			width : '35%',
+			funnelAlign : 'left',
+			// max: 1048,
+			data : [],
+			itemStyle : {
+				normal : {
+					label : {
+						show : true,
+						formatter : "{d}%\n{b}",
+						textStyle : {
+							color : "white",
+							fontSize : 14
+						}
+					}
+				}
+			},
+		} ]
+	};
+	$.ajax({
+		type : "get",
+		url : ctx + "/stationOnline/getBusinessTypePersent",
+		async : false,
+		dataType : "json",
+		success : function(data) {
+			option.series[0].data = data;
+			var chart;
+			if (typeof (isIndex) == 'undefined') {
+				chart = echarts.init(document.getElementById('online_pie'));
+
+			} else {
+				var obj = document.getElementById("pageIframe").contentWindow.document.getElementById("online_pie");
+				chart = echarts.init(obj);
+			}
+			chart.setOption(option);
+		}
+	});
+
+}

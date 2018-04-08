@@ -5,8 +5,8 @@
 <link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
 <script th:src="@{/js/station/selfHelperTaxServer.js}"></script>
 <script th:src="@{/js/station/onlineTaxServer.js}"></script>
+<script th:src="@{/js/station/entityTaxServer.js}"></script>
 <script th:src="@{/js/station/taxServer12366.js}"></script>
-<script th:src="@{/js/station/pluginEchart.js}"></script>
 <title>上海税务大屏展示</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 			</div>
 			<!--数值 -->
 			<div style="width: 100%; height: 67px; margin-top: 40.5px;" class="div_center">
-				<span class="span_yellow_77">27,005</span>
+				<span class="span_yellow_77" id="entity_total_count"></span>
 			</div>
 			<!--图标 -->
 			<div style="width: 100%; height: 72px; margin-top: 26.5px; background: url(/img/index_entity_1.png)"></div>
@@ -29,7 +29,94 @@
 			</div>
 			<!--表格 -->
 			<div style="width: 100%; height: 270px; margin-top: 43px" class="div_center">
-				<div style="width: 315px; height: 100%; background: url(/img/index_entity_box_bg.png)"></div>
+				<div style="width: 315px; height: 100%; background: url(/img/index_entity_box_bg.png)">
+					<table id="index_entity_rank">
+						<tr style="height: 40px;">
+							<td style="width: 40%">
+								<span>服务窗口</span>
+							</td>
+							<td style="width: 20%">
+								<span>已办理</span>
+							</td>
+							<td style="width: 15%">
+								<span>等待</span>
+							</td>
+							<td style="width: 25%">
+								<span>预计等待</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+							<td>
+								<span></span>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 		<!-- 		网厅 -->
@@ -80,7 +167,7 @@
 			</div>
 			<!-- 			数值 -->
 			<div style="width: 100%; height: 67px; margin-top: 40.5px;" class="div_center">
-				<span class="span_yellow_77" id="entity_total_count" ></span>
+				<span class="span_yellow_77" id="selfHelper_total_count"></span>
 			</div>
 			<!-- 			图标 -->
 			<div style="width: 100%; height: 72px; margin-top: 26.5px; background: url(/img/index_selfhelper_1.png)"></div>
@@ -94,20 +181,26 @@
 	</div>
 	<script>
 		$(function() {
+			//实服务厅业务处理总量
+			getTotalCount();
+			//实体厅排行榜
+			IndexEntityRank();
+
 			//网厅 处理业务量总人数
 			getHanldedCount();
 			//网厅 当前在线人数
 			getOnlineNum();
 			//网厅 环形图
 			getBusinessTypePersent();
-			
+
 			//12366
 			getCallCountTotal();
 			getCurrentCallNum();
 			getQuestionTypePersent();
-			
+
 			//自助办税终端
 			getIndexTotalCountAndPieEcharts();
+
 		})
 	</script>
 </body>

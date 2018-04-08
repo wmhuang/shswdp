@@ -190,6 +190,10 @@
 	color: #E5EFFF;
 	font-size: 24px;
 }
+.span_white_20_1 {
+	color: #E5EFFF;
+	font-size: 20px;
+}
 
 .span_white_26_h60 {
 	color: white;
@@ -422,4 +426,20 @@
 }
 #questType_table tr td {
 	border-bottom: 1px solid rgb(106, 148, 211);
+}
+
+#index_entity_rank {
+	border-collapse: collapse;
+	width:100%;
+	text-align:center;
+}
+#index_entity_rank tr{
+	height:44px;
+}
+#index_entity_rank tr td {
+	
+	border-bottom: 1px solid rgb(106, 148, 211);
+}
+#index_entity_rank span{
+	color:white;
 }
