@@ -18,7 +18,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  * Thymeleaf and Spring MVC configuration.
  */
 @Configuration
-@ComponentScan("com.css.nsfw.dp.web.controller")
+@ComponentScan("com.css.nsfw.dp.controller")
 public class ThymeleafConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private static final String UTF8 = "UTF-8";
