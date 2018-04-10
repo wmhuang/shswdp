@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.css.nsfw.dp.utils.Utils;
 
+
 /**
  * Created by autod on 2017/5/17.
  */
@@ -74,7 +75,7 @@ public class UtilsController {
 		default:
 			break;
 		}
-		String fileFullName = "src/main/resources/mapper/" + fileName + ".xml";
+		String fileFullName = "src\\main\\resources\\mapper\\" + fileName + ".xml";
 		String str;
 		File file = new File(fileFullName);
 		try (FileReader reader = new FileReader(file); BufferedReader bReader = new BufferedReader(reader);) {
