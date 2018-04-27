@@ -25,7 +25,7 @@ arm:
 ## wt 数据源配置
 wt:
  datasource:
-  url: jdbc:oracle:thin:@78.12.73.54:1521/wsbsdb
+  url: jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = tcp)(HOST = 78.12.73.54)(PORT = 1521))(ADDRESS = (PROTOCOL = tcp)(HOST = 78.12.73.55)(PORT = 1521))(LOAD_BALANCE = ON)(FAILOVER = ON))  (CONNECT_DATA =(SERVICE_NAME = wsbsdb)(GLOBAL_NAME = wsbsdb)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)))))
   username: DB_USER
   password: SHWSBSDB_USER
   driverClassName: oracle.jdbc.driver.OracleDriver

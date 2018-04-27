@@ -51,7 +51,7 @@ public class UtilsController {
 		case "online":
 			return getSql("wt/StationOnlineTaxServerMapper", timeSpan, unitCode);
 		case "selfHelper":
-			return getSql("arm/StationSelfHelperTaxServerMapper", timeSpan, unitCode);
+			return getSql("arm/StationSelfHelpTaxServerMapper", timeSpan, unitCode);
 		case "12366":
 			return getSql("nfpt/Station12366Mapper", timeSpan, unitCode);
 		default:

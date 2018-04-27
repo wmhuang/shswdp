@@ -43,9 +43,8 @@
 		t.tydk_fs), '0') 发票代开
 		from ywcl.tj_ywltjzd t
 		where 1=1
-		and to_date(
-		t.czsj,'yyyy/MM/dd')
-		>
+		and to_date(t.czsj,'yyyy/MM/dd')
+		>=
 		<include refid="timeSpanSql"></include>
 		and t.swjg_dm = ${unitCode}
 	</select>

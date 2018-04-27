@@ -62,6 +62,7 @@ function getArmUsedCountRank(isIndex) {
 		url : ctx + '/stationSelfHelp/getArmUsedCountRank',
 		dataType : 'json',
 		success : function(data) {
+			console.log(data);
 			pushRankTable('station_selfHelp_2_table', 0, 2, data, isIndex);
 		}
 	})
