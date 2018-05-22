@@ -90,6 +90,7 @@ function setTimeSpan(timeSpan) {
 				getCallCount("1");
 				getCallSuccess("1");
 				getCallDegree("1");
+				getHotQuestion("1");
 				break;
 			default:
 			}

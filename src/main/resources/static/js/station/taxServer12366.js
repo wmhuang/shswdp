@@ -92,14 +92,14 @@ function getCurrentCallNum(isIndex) {
 	})
 }
 
-function getHotQuestion() {
+function getHotQuestion(isIndex) {
 	var datas = new Array();
 	var jsons;
 	datas.push({
 		name : "咨询热点",
 		symbolSize : 50,
 		draggable : true,
-		value : 27,
+		value : 0,
 		label : {
 			normal : {
 				show : false,
@@ -132,7 +132,7 @@ function getHotQuestion() {
 		success : function(json) {
 			jsons = json;
 			// 处理表格
-			getRanksTable(json);
+			getRanksTable(json,isIndex);
 			for (var i = 0; i < json.length; i++) {
 				bool = true;
 				for (var s = 0; s < json1.length; s++) {
@@ -208,7 +208,7 @@ function getHotQuestion() {
 					},
 					itemStyle : {
 						normal : {
-							color : getcolor(json[i].YJMC)
+							color : getcolor(json[i].YJMC,map_colo)
 						}
 					}
 				});
@@ -221,85 +221,12 @@ function getHotQuestion() {
 				});
 			}
 		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
+	 error : function(XMLHttpRequest, textStatus, errorThrown) {
 
 		}
 	});
-	function getRanksTable(json) {
-		var m = getTop5Color(json);
-
-		var tableHtml = "<table style='border-collapse: collapse;'>" + "<tr>" + "<td colspan='3' style='text-align:right'>" + "<span class='span_yellow_30' >TOP5排行榜</span>"
-				+ "</td>" + "</tr>";
-
-		var total = 0;
-		for (var j = 0; j < json.length; j++) {
-			total += json[j].SL;
-		}
-		for (var i = 0; i < json.length; i++) {
-			var yjmc = json[i].YJMC;
-			if (i > 4) {
-				// 控制排行榜的数量，4代表前5
-				break;
-			}
-			var questionName = json[i].EJMC;
-			var questionCount = json[i].SL;
-			var questionPersent1 = json[i].SL / total;
-			var questionPersent2 = questionPersent1 * 100;
-
-			questionPersent2 = questionPersent2.toFixed(2) + "%";
-
-			var tableTrHtml = "<tr >\n" + "<td width='200px'><span class='span_white_26'>" + questionName + "</span></td>\n" + "<td width='70px'><span class='span_white_26'>"
-					+ questionCount + "</span></td>\n" + " <td width='100px'><span class='span_white_26'>" + questionPersent2 + "</span></td>\n" + "</tr>";
-			tableHtml += tableTrHtml;
-		}
-		tableHtml += "</table>";
-		var rankDiv = document.getElementById('questType_table');
-		rankDiv.innerHTML = tableHtml;
-	}
-
-	function getTop5Color(json) {
-		var m = new Map();
-		var colors = [ "rgba(212,130,101,1)", "rgba(156,39,176,1)", "rgba(0,150,136,1)" ];
-		var currentColor = 0;
-		for (var i = 0; i < json.length; i++) {
-			var YJMC = json[i].YJMC;
-			var color = m.get(YJMC);
-			if (color == null) {
-				m.set(YJMC, colors[currentColor]);
-				currentColor++;
-			}
-		}
-		return m;
-	}
-
-	function getcolor(n) {
-		for (var i = 0; i < map_colo.length; i++) {
-			if (n == map_colo[i].name) {
-				return map_colo[i].value;
-			}
-		}
-	}
-	function getInt(i) {
-		if (i > 100) {
-			return fRandomBy(80, 100);
-		} else if (i < 5) {
-			return fRandomBy(40, 60);
-		} else {
-			return i;
-		}
-	}
-	function fRandomBy(under, over) {
-		switch (arguments.length) {
-		case 1:
-			return parseInt(Math.random() * under + 1);
-		case 2:
-			return parseInt(Math.random() * (over - under + 1) + under);
-		default:
-			return 0;
-		}
-	}
-
-	option = {
+	
+	var option = {
 		backgroundColor : '',
 		tooltip : {},
 		animationDuration : 1000,
@@ -326,10 +253,95 @@ function getHotQuestion() {
 			}
 		} ]
 	};
-	var chart = echarts.init(document.getElementById('hotQuestion'));
+	var chart;
+	if (typeof (isIndex) == 'undefined') {
+		// data.value为处理业务总量
+		chart = echarts.init(document.getElementById('hotQuestion'));
+	} else {
+
+		var obj = document.getElementById("pageIframe").contentWindow.document.getElementById("hotQuestion");
+		chart = echarts.init(obj);
+	}
 	chart.setOption(option);
 }
+function getRanksTable(json,isIndex) {
+	var m = getTop5Color(json);
+	var tableHtml = "<table style='border-collapse: collapse;'>" + "<tr>" + "<td colspan='3' style='text-align:right'>" + "<span class='span_yellow_30' >TOP5排行榜</span>"
+			+ "</td>" + "</tr>";
 
+	var total = 0;
+	for (var j = 0; j < json.length; j++) {
+		total += json[j].SL;
+	}
+	for (var i = 0; i < json.length; i++) {
+		var yjmc = json[i].YJMC;
+		if (i > 4) {
+			// 控制排行榜的数量，4代表前5
+			break;
+		}
+		var questionName = json[i].EJMC;
+		var questionCount = json[i].SL;
+		var questionPersent1 = json[i].SL / total;
+		var questionPersent2 = questionPersent1 * 100;
+
+		questionPersent2 = questionPersent2.toFixed(2) + "%";
+
+		var tableTrHtml = "<tr >\n" + "<td width='200px'><span class='span_white_26'>" + questionName + "</span></td>\n" + "<td width='70px'><span class='span_white_26'>"
+				+ questionCount + "</span></td>\n" + " <td width='100px'><span class='span_white_26'>" + questionPersent2 + "</span></td>\n" + "</tr>";
+		tableHtml += tableTrHtml;
+	}
+	tableHtml += "</table>";
+	var redDiv;
+	if (typeof (isIndex) == 'undefined') {
+		redDiv=document.getElementById('questType_table');
+	} else {
+		redDiv = document.getElementById("pageIframe").contentWindow.document.getElementById("questType_table");
+	}
+	redDiv.innerHTML=tableHtml;
+
+}
+
+function getTop5Color(json) {
+	var m = new Map();
+	var colors = [ "rgba(212,130,101,1)", "rgba(156,39,176,1)", "rgba(0,150,136,1)" , "rgba(0,136,150,1)"];
+	var currentColor = 0;
+	for (var i = 0; i < json.length; i++) {
+		var YJMC = json[i].YJMC;
+		var color = m.get(YJMC);
+		if (color == null) {
+			m.set(YJMC, colors[currentColor]);
+			currentColor++;
+		}
+	}
+	return m;
+}
+
+function getcolor(n,map_colo) {
+	for (var i = 0; i < map_colo.length; i++) {
+		if (n == map_colo[i].name) {
+			return map_colo[i].value;
+		}
+	}
+}
+function getInt(i) {
+	if (i > 100) {
+		return fRandomBy(80, 100);
+	} else if (i < 5) {
+		return fRandomBy(40, 60);
+	} else {
+		return i;
+	}
+}
+function fRandomBy(under, over) {
+	switch (arguments.length) {
+	case 1:
+		return parseInt(Math.random() * under + 1);
+	case 2:
+		return parseInt(Math.random() * (over - under + 1) + under);
+	default:
+		return 0;
+	}
+}
 // 主页12366问题类型占比
 function getQuestionTypePersent(isIndex) {
 	var option = {

@@ -72,7 +72,7 @@
 	</select>
 
 	<!-- 咨询热点 数据正确后将id改为getHotQuestion -->
-	<select id="getHotQuestion1" parameterType="Map" resultType="Map">
+	<select id="getHotQuestion" parameterType="Map" resultType="Map">
 		select substr(t.bmzdname, 0, 4) yjmc,
 		substr(t.bmzdname, 7, 10) ejmc,
 		sum(t.slsum) sl,
@@ -91,7 +91,7 @@
 	</select>
 
 	<!-- 咨询热点 由于数据缺失，先用历史数据替代 后期删除 -->
-	<select id="getHotQuestion" parameterType="Map" resultType="Map">
+	<select id="getHotQuestion1" parameterType="Map" resultType="Map">
 		select substr(t.bmzdname, 0, 4) yjmc,
 		substr(t.bmzdname, 7, 10) ejmc,
 		sum(t.slsum) sl,

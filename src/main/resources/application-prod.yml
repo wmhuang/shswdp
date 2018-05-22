@@ -21,7 +21,7 @@ arm:
   username: arm_jhj
   password: arm_jhj
   driverClassName: oracle.jdbc.driver.OracleDriver
-  
+
 ## wt 数据源配置
 wt:
  datasource:
@@ -61,4 +61,4 @@ logging:
     nsfw:
      dp:
       dao:
-       nfpt: debug
+       nfpt: error
