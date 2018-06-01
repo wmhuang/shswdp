@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<title>上海纳税服务大屏</title>
+<script th:src="@{/js/main/taxServerStatistics12366.js}"></script>
+</head>
+<body>
+	<div style="position: relative; width: 1920px; height: 775px;">
+		<div style="float: left; width: 820px; height: 710px;">
+			<div class="left_div_12366">
+				<div class="div_harf_height div_center">
+					<img src="/img/接通率.png" th:src="@{/img/接通率.png}">
+					<span class="span_yellow_60">&nbsp;&nbsp;</span>
+					<span id="jtl_value" class="span_yellow_60">99</span>
+					<span class="span_yellow_60">&nbsp;</span>
+					<span class="span_yellow_36" style="margin-top: 20px;">%</span>
+				</div>
+				<div class="div_harf_height div_center">
+					<div class="background_btn_div_12366">
+						<span class="span_white_30">接通率</span>
+					</div>
+				</div>
+			</div>
+			<div class="left_div_12366">
+				<div class="div_harf_height div_center">
+					<img src="/img/满意率.png" th:src="@{/img/满意率.png}">
+					<span class="span_yellow_60">&nbsp;&nbsp;</span>
+					<span id="myl_value" class="span_yellow_60">99</span>
+					<span class="span_yellow_60">&nbsp;</span>
+					<span class="span_yellow_36" style="margin-top: 20px;">%</span>
+				</div>
+				<div class="div_harf_height div_center">
+					<div class="background_btn_div_12366">
+						<span class="span_white_30">满意率</span>
+					</div>
+				</div>
+			</div>
+			<div class="left_div_12366 left_div_margin_top_12366 left_div_margin_left265_12366">
+				<div class="div_harf_height div_center">
+					<img src="/img/来电总量.png" th:src="@{/img/来电总量.png}">
+					<span class="span_yellow_60">&nbsp;&nbsp;</span>
+					<span id="ldzl_value" class="span_yellow_60">27,212</span>
+
+				</div>
+				<div class="div_harf_height div_center">
+					<div class="background_btn_div_12366">
+						<span class="span_white_30">来电总量</span>
+					</div>
+				</div>
+			</div>
+			<div class="left_div_12366 left_div_margin_top_12366">
+				<div class="div_harf_height div_center">
+					<img src="/img/人工服务量.png" th:src="@{/img/人工服务量.png}">
+					<span class="span_yellow_60">&nbsp;&nbsp;</span>
+					<span id="rgyyfwl_value" class="span_yellow_60">12,232</span>
+
+				</div>
+				<div class="div_harf_height div_center">
+					<div class="background_btn_div_12366">
+						<span class="span_white_30">人工服务量</span>
+					</div>
+				</div>
+			</div>
+			<div class="left_div_12366 left_div_margin_top_12366">
+				<div class="div_harf_height div_center">
+					<img src="/img/自动语音服务量.png" th:src="@{/img/自动语音服务量.png}">
+					<span class="span_yellow_60">&nbsp;&nbsp;</span>
+					<span id="zdyyfwl_value" class="span_yellow_60">14,980</span>
+				</div>
+				<div class="div_harf_height div_center">
+					<div class="background_btn_div_12366">
+						<span class="span_white_30">自动语音服务量</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="float: left; width: 990px; height: 710px; margin-left: 52px; background: url(/img/咨询热点背景.png)">
+			<div style="width: 240px; height: 90px; margin-left: 375px; margin-top: 30px" class="div_center">
+				<img src="/img/咨询热点.png" th:src="@{/img/咨询热点.png}" />
+				<span class="span_white_30" style="margin-left: 30px">咨询热点</span>
+			</div>
+			<div id="hotQuestion" style="float: left; width: 580px; height: 590px;"></div>
+			<div style="float: left; width: 365px; height: 590px; margin-left: 20px;">
+				<div id="questType_table"></div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			getCallCount();
+			getCallSuccess();
+			getCallDegree();
+			getHotQuestion();
+		})
+	</script>
+</body>
+</html>

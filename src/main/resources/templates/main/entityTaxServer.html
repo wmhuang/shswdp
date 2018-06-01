@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<link rel="stylesheet" type="text/css" href="../../static/css/entityMain.css" th:href="@{/css/entityMain.css}">
+<title>实体办税服务厅</title>
+<script th:src="@{/js/main/entityTaxServer.js}"></script>
+</head>
+<body>
+	<!--窗口受理人数TOP5 -->
+	<div class="div_box1">
+		<!-- 标题 -->
+		<div class="div_box_title_change">
+			<!--空div不能删 用来放置左右翻页箭头 -->
+			<div></div>
+			<span id="rank_1_title">窗口受理人数TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 -->
+		<div class="div_data">
+			<table class="table_data" id="rank_1_table">
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+	<!-- 		业务受理总量排行榜TOP5 -->
+	<div class="div_box2">
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="handledBusiness_title">业务受理总量城区TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 top5-->
+		<div id="handledBusiness_rank" class="div_data">
+			<table id="handledBusiness_table" class="table_data">
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+
+			</table>
+		</div>
+		<!-- 数据饼状图-->
+		<!-- 		<div id="handledBusiness_pie" class="div_box_2_pie" style="display: none;"></div> -->
+
+	</div>
+	<!-- 		业务受理类型TOP5 -->
+	<div class="div_box3">
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="handledBusinessType_title">业务受理类型TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 -->
+		<div class="div_data">
+			<table class="table_data" id="handledBusinessType_table">
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- 		全市通办分局TOP5 -->
+	<div class="div_box4">
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="getCountByStaionOrBusiness_title">通办业务受理TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 -->
+		<div class="div_data">
+			<table class="table_data" id="getCountByStaionOrBusiness_table">
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+				<tr>
+					<td><span>0</span></td>
+					<td></td>
+					<td><span>xxxx</span></td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+
+	<!-- 全市取号数量，已办理人数，等待人数 -->
+	<div class="div_bottom1">
+		<div class="div_bottom1_line">
+			<div>
+				<span>全市取号数量：</span>
+			</div>
+			<div>
+				<span id="offerNumber"></span>
+			</div>
+		</div>
+		<div class="div_bottom1_line">
+			<div>
+				<span>已办理人数：</span>
+			</div>
+			<div>
+				<span id="handledNumber"></span>
+			</div>
+		</div>
+		<div class="div_bottom1_line">
+			<div>
+				<span>当前等待人数：</span>
+			</div>
+			<div>
+				<span id="waitingNumber"></span>
+			</div>
+		</div>
+	</div>
+
+	<!-- 办税大厅窗口情况 -->
+	<div class="div_bottom2">
+		<div id="taxServerWindowStatistics_bar_div">
+			<div id="taxServerWindowStatistics_bar"></div>
+
+			<div class="div_bottom2_bar_count">
+				<table>
+					<tr>
+						<td><span class="sgreen s36" id="openWindowNum">0</span></td>
+						<td><span class="yellow s36" id="pauseWindowNum">0</span></td>
+						<td><span class="red s36" id="closeWindowNum">0</span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div id="taxServerWindowStatistics_line_div"></div>
+		<div class="div_bottom_title">
+			<span> 办税大厅窗口情况 </span>
+		</div>
+	</div>
+
+	<!-- 本区预约/跨区通办预约 -->
+	<div class="div_bottom3">
+		<div id="bqkqtbyy_bar">柱状图</div>
+		<div class="div_bottom_title">
+			<span> 本区预约/跨区通办预约 </span>
+		</div>
+	</div>
+	<!--当日预约办理情况 -->
+	<div class="div_bottom4">
+		<div class="div_bottom4_count">
+			<img src="/img/icon_yybl.png">
+			<span>&nbsp;&nbsp;</span>
+			<span class="syellow s60" id="subScribeStatistics"> 0 </span>
+		</div>
+		<div class="div_bottom_title">
+			<span>预约受理量 </span>
+		</div>
+	</div>
+	<script>
+		function initChange() {
+			getServerCountRank();
+			handledBusinessChange();
+			getOfferNumber();
+			getHandledBusinessTypeRank();
+			getHandledCountByStationOrBusinessRank();
+			getSubScribeStatistics();
+		}
+		$(function() {
+			initChange();
+			window.setInterval(initChange, 10000)
+		})
+	</script>
+</body>
+</html>

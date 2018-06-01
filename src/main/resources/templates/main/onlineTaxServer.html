@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<link rel="stylesheet" type="text/css" href="../../static/css/onlineMain.css" th:href="@{/css/onlineMain.css}">
+<title>网上办税服务厅</title>
+<script th:src="@{/js/main/onlineTaxServer.js}">
+	
+</script>
+</head>
+<body>
+	<div class="div_top">
+		<!--当日预约总量 -->
+
+		<span>预约总量</span>
+		<br>
+		<span id="bespeakNum"></span>
+
+	</div>
+	<div class="div_top">
+		<!--微信取号总量 -->
+		<span>微信取号总量 </span>
+		<br>
+		<span id="wechatNum"></span>
+	</div>
+	<div class="div_top">
+		<!--业务受理总量 -->
+		<span>业务受理总量</span>
+		<br>
+		<span id="hanldedCount"></span>
+	</div>
+	<div class="div_top">
+		<!--税企互动总量-->
+		<span>税企互动总量</span>
+		<br>
+		<span id="taxAndCominteractNum"></span>
+	</div>
+
+	<div class="div_center_box1">
+		<!-- 标题 -->
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="station_online_1_rank">跨区通办预约TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 -->
+		<div class="div_data">
+			<table class="table_data" id="station_online_1_table">
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="div_center_box2">
+		<!-- 标题 -->
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="station_online_2_rank">微信取号按事项TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 -->
+		<div class="div_data">
+			<table class="table_data" id="station_online_2_table">
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="div_center_box3">
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="handledBusiness_title">业务受理总量TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 top5-->
+		<div id="handledBusiness_rank" class="div_data">
+			<table id="station_online_3_table" class="table_data">
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span> </span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="div_center_box4">
+		<div class="div_box_title_change">
+			<div></div>
+			<span id="handledBusiness_title">各区网厅业务TOP5</span>
+			<div></div>
+		</div>
+		<!-- 数据 top5-->
+		<div id="handledBusiness_rank" class="div_data">
+			<table id="station_online_4_table" class="table_data">
+				<tr>
+					<td><span></span></td>
+					<td></td>
+					<td><span></span></td>
+				</tr>
+				<tr>
+					<td><span> </span></td>
+					<td></td>
+					<td><span> </span></td>
+				</tr>
+				<tr>
+					<td><span> </span></td>
+					<td></td>
+					<td><span> </span></td>
+				</tr>
+				<tr>
+					<td><span> </span></td>
+					<td></td>
+					<td><span> </span></td>
+				</tr>
+				<tr>
+					<td><span> </span></td>
+					<td></td>
+					<td><span> </span></td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+	<!-- 本区预约/跨区通办预约 -->
+	<div class="div_bottom1">
+		<div id="handledByOtherArea_bar"></div>
+	</div>
+	<div class="div_bottom2">
+		<div class="div_bottom2_div1">
+			<img src="/img/icon_yuyue.png" />
+			<div>
+				<span>274,005</span>
+			</div>
+			<div>
+				<span>重点事项实时办理量</span>
+			</div>
+		</div>
+		<div class="div_bottom2_split"></div>
+		<div class="div_bottom2_div2">
+			<div class="div_harf_height">
+				<div>
+					<span>事项名称1</span>
+				</div>
+				<div>
+					<span>1,221</span>
+				</div>
+			</div>
+			<div class="div_harf_height">
+				<div>
+					<span>事项名称2</span>
+				</div>
+				<div>
+					<span>1,221</span>
+				</div>
+			</div>
+		</div>
+		<div class="div_bottom2_div2">
+			<div class="div_harf_height">
+				<div>
+					<span>事项名称3</span>
+				</div>
+				<div>
+					<span>1,221</span>
+				</div>
+			</div>
+			<div class="div_harf_height">
+				<div>
+					<span>事项名称4</span>
+				</div>
+				<div>
+					<span>1,221</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			getAllMaps();
+			getHandledByAreaRank();
+			getOfferNumByWeChatRank();
+			getHandldedRank();
+			getHandledCountRealTime();
+			//柱状图数据
+			handledByOtherArea();
+			//折线图
+			// 			stationOnlineTaxServerCountLine();
+		})
+	</script>
+</body>
+</html>

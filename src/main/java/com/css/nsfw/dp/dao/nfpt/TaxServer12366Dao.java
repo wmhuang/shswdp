@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper
-public interface Station12366TaxServerDao {
+public interface TaxServer12366Dao {
 	// 话务总量，人工服务量，自动接听服务量
 	Map getCallCount(Map<String, Object> params);
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
+<link rel="stylesheet" type="text/css" href="../../static/css/indexPageMain.css" th:href="@{/css/indexPageMain.css}">
+<script th:src="@{/js/main/indexPage.js}"></script>
+<title>实体办税服务厅</title>
+</head>
+<body>
+	<div class="top">
+		<span class="syellow s90 h74" id="dqbsfwtrs"></span>
+		<div class="top_title">
+			<span class="white s32 h80">当前办税服务厅人数</span>
+		</div>
+	</div>
+	<div class="div_left">
+		<table id="table_left" cellspacing="20">
+			<tr>
+				<td><span class="sgreen s72">2,688</span></td>
+				<td><span class="yellow s60">688</span></td>
+				<td><span class="red s60">88</span></td>
+			</tr>
+			<tr>
+				<td><span>开启</span></td>
+				<td><span>暂停</span></td>
+				<td><span>关闭</span></td>
+			</tr>
+		</table>
+
+
+
+		<div class="left_title">
+			<span class="white s32 h80">办税服务厅窗口运行情况</span>
+		</div>
+	</div>
+	<div class="center_div"></div>
+	<div class="right_div">
+		<table id="indexRightTable" cellspacing="0">
+			<tr>
+				<td><span></span></td>
+				<td></td>
+				<td><span></span></td>
+			</tr>
+			<tr>
+				<td><span></span></td>
+				<td></td>
+				<td><span></span></td>
+			</tr>
+			<tr>
+				<td><span></span></td>
+				<td></td>
+				<td><span></span></td>
+			</tr>
+			<tr>
+				<td><span></span></td>
+				<td></td>
+				<td><span></span></td>
+			</tr>
+			<tr>
+				<td><span></span></td>
+				<td></td>
+				<td><span></span></td>
+			</tr>
+		</table>
+		<div class="right_title">
+			<span class="white s32 h80">业务受理情况</span>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			getDqbsfwtrs();
+			getYwslqk();
+
+		})
+	</script>
+</body>
+</html>

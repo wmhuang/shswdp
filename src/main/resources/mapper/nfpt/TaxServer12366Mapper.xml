@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.css.nsfw.dp.dao.nfpt.Station12366TaxServerDao">
+<mapper namespace="com.css.nsfw.dp.dao.nfpt.TaxServer12366Dao">
 	<sql id="timeSpanSql1">
 		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
 			trunc(sysdate)-1
@@ -33,7 +33,7 @@
 		where 1 = 1
 		and t.rq >=
 		<include refid="timeSpanSql"></include>
-		and substr(t.jgbm, 1, 7) = substr(${unitCode}, 1, 7)
+<!-- 		and substr(t.jgbm, 1, 7) = substr(${unitCode}, 1, 7) -->
 	</select>
 
 	<!-- 接通率 -->
@@ -49,7 +49,7 @@
 		where 1=1
 		and c.rq >=
 		<include refid="timeSpanSql"></include>
-		and substr(c.jgbm, 1, 7) = substr(${unitCode}, 1, 7)
+<!-- 		and substr(c.jgbm, 1, 7) = substr(${unitCode}, 1, 7) -->
 	</select>
 
 	<!-- 满意率 -->
@@ -68,7 +68,7 @@
 		where 1 = 1
 		and c.rq >=
 		<include refid="timeSpanSql"></include>
-		and substr(c.jgbm, 1, 7) = substr(${unitCode}, 1, 7)
+<!-- 		and substr(c.jgbm, 1, 7) = substr(${unitCode}, 1, 7) -->
 	</select>
 
 	<!-- 咨询热点 数据正确后将id改为getHotQuestion -->
@@ -118,9 +118,9 @@
 		sysdate
 		- 10 / (60 * 24)
 		and
-		substr(t.unitcode, 1, 7) =
-		substr(${unitCode}, 1,
-		7)
+<!-- 		substr(t.unitcode, 1, 7) = -->
+<!-- 		substr(${unitCode}, 1, -->
+<!-- 		7) -->
 	</select>
 	<!-- 转换税务机关 -->
 		<select id="changeUntiCode" parameterType="Map" resultType="Map">

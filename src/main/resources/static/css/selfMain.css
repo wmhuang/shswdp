@@ -1,0 +1,98 @@
+.div_left {
+	float: left;
+	width: 1111px;
+	height: 775px;
+}
+
+.div_ywslzl {
+	margin-top: 15px;
+	margin-left: 220px;
+}
+
+.div_ywslzl_count {
+	margin-top: 3px;
+	margin-left: 220px
+}
+
+.div_box1 {
+	float: left;
+	width: 465px;
+	height: 441px;
+	margin-left: 120px;
+	margin-top: 11px;
+	background: url(/img/bg2.png);
+}
+
+.div_box2 {
+	float: left;
+	width: 465px;
+	height: 441px;
+	margin-left: 18px;
+	margin-top: 11px;
+	background: url(/img/bg4.png);
+}
+
+.div_left_bottom {
+	float: left;
+	width: 1111px;
+	height: 173px;
+	margin-left: 30px;
+	margin-top: 10px;
+	background: url(/img/bg_self_1.png);
+}
+
+.div_left_bottom_div1 {
+	float: left;
+	width: 213px;
+	height: 100%;
+}
+
+.div_left_bottom_div1 img {
+	margin-top: 20px;
+	margin-left: 82.1px;
+	float: left
+}
+
+.div_left_bottom_div1_div1 {
+	float: left;
+	margin-top: 10px;
+	margin-left: 47px;
+}
+
+.div_left_bottom_div1_div2 {
+	float: left;
+	height: 121px;
+	width: 3px;
+	margin-top: 26px;
+	background: #6C99E0;
+}
+
+.div_left_bottom_div1_div3 {
+	float: left;
+	width: 447px;
+	height: 100%;
+}
+
+.div_left_bottom_div1_div3 .div_harf_height div:first-child {
+	float: left;
+	height: 42px;
+	margin-top: 30px;
+	margin-left: 48px;
+}
+
+.div_left_bottom_div1_div3 .div_harf_height div:last-child {
+	float: left;
+	height: 42px;
+	margin-top: 30px;
+	margin-left: 48px;
+}
+
+.div_left_bottom_div1_div3 .div_harf_height div:first-child span {
+	color: white;
+	font-size: 30px;
+}
+
+.div_left_bottom_div1_div3 .div_harf_height div:last-child span {
+	color: #FFB61C;
+	font-size: 36px;
+}

@@ -1,0 +1,142 @@
+.div_top {
+	float: left;
+	width: 390px;
+	height: 110px;
+	margin-left: 80px;
+}
+
+.div_top span:first-child {
+	color: white;
+	font-size: 26px;
+}
+
+.div_top span:last-child {
+	color: #FFB61C;
+	font-size: 60px;
+}
+
+.div_center_box1 {
+	float: left;
+	width: 458px;
+	height: 450px;
+	margin-left: 16px;
+	background: url(/img/bg3.png);
+}
+
+.div_center_box2 {
+	float: left;
+	width: 458px;
+	height: 450px;
+	margin-left: 16px;
+	background: url(/img/bg1.png);
+}
+
+.div_center_box3 {
+	float: left;
+	width: 458px;
+	height: 450px;
+	margin-left: 16px;
+	background: url(/img/bg2.png);
+}
+
+.div_center_box4 {
+	float: left;
+	width: 458px;
+	height: 450px;
+	margin-left: 16px;
+	background: url(/img/bg4.png);
+}
+
+.div_bottom1 {
+	float: left;
+	width: 400px;
+	height: 210px;
+	margin-left: 50px;
+}
+
+#handledByOtherArea_bar {
+	width: 400px;
+	height: 210px;
+}
+
+.div_bottom2 {
+	float: left;
+	width: 1381px;
+	height: 173px;
+	margin-left: 50px;
+	background-image: url('/img/bg_online_1.png');
+}
+
+.div_bottom2_div1 {
+	float: left;
+	width: 349px;
+	height: 100%;
+}
+
+.div_bottom2_split {
+	float: left;
+	width: 3px;
+	height: 70%;
+	margin-top: 26px;
+	background: #6C99E0;
+}
+
+.div_bottom2_div1 img {
+	margin-top: 25px;
+	margin-left: 45.1px;
+	float: left;
+}
+
+.div_bottom2_div1 div:nth-child(2) {
+	margin-top: 21px;
+	margin-left: 26px;
+	float: left;
+}
+
+.div_bottom2_div1 div:nth-child(2) span {
+	color: #FFB61C;
+	font-size: 42px;
+}
+
+.div_bottom2_div1 div:last-child {
+	float: left;
+	margin-top: 15px;
+	margin-left: 47px;
+}
+
+.div_bottom2_div1 div:last-child span {
+	color: white;
+	font-size: 30px;
+}
+
+.div_bottom2_div2 {
+	float: left;
+	width: 510px;
+	height: 100%;
+}
+
+.div_bottom2_div2 .div_harf_height div:first-child {
+	float: left;
+	height: 42px;
+	margin-top: 30px;
+	margin-left: 48px;
+}
+
+.div_bottom2_div2 .div_harf_height div:first-child span {
+	color: white;
+	font-size: 30px;
+}
+
+.div_bottom2_div2 .div_harf_height div:last-child {
+	float: left;
+	width: 200px;
+	height: 44px;
+	margin-top: 28px;
+	margin-left: 16px;
+}
+
+.div_bottom2_div2 .div_harf_height div:last-child span {
+	color: #FFB61C;
+	font-size: 36px;
+}
+}

@@ -1,0 +1,211 @@
+/* 第一个排行榜总体div */
+.div_box1 {
+	position: absolute;
+	height: 451px;
+	width: 465px;
+	top: 75px;
+	left: 20px;
+	background: url(/img/bg1.png);
+}
+
+.div_box2 {
+	position: absolute;
+	height: 451px;
+	width: 465px;
+	top: 4px;
+	left: 492px;
+	background: url(/img/bg2.png);
+}
+
+.div_box3 {
+	position: absolute;
+	height: 451px;
+	width: 465px;
+	top: 4px;
+	left: 963px;
+	background: url(/img/bg3.png);
+}
+
+.div_box4 {
+	position: absolute;
+	height: 451px;
+	width: 465px;
+	top: 75px;
+	left: 1435px;
+	background: url(/img/bg4.png);
+}
+
+
+
+/* 第二个排行榜会和饼形图切换 此为饼形图的样式 */
+.div_box_2_pie {
+	width: 370px;
+	height: 284px;
+	float: left;
+	margin-top: 35px;
+	margin-left: 48px;
+}
+/* 第三个排行榜右边文字量不叫多 特殊处理 */
+.box_table_left_1 {
+	width: 20%;
+	text-align: left;
+}
+/* 第三个排行榜右边文字量不叫多 特殊处理 */
+.box_table_right_1 {
+	width: 70%;
+	text-align: right;
+}
+/* 第三个排行榜右边文字量不叫多 特殊处理 */
+.table_data_small tr td:first-child {
+	width: 20%;
+}
+/* 第三个排行榜右边文字量不叫多 特殊处理 */
+.table_data_small tr td:last-child {
+	width: 70%;
+}
+/* 第三个排行榜右边文字量不叫多 特殊处理 */
+.table_data_small tr td:last-child span {
+	font-size: 24px;
+}
+
+/* 底部第一个模块 */
+.div_bottom1 {
+	width: 420px;
+	height: 250px;
+	position: absolute;
+	top: 526px;
+	left: 30px;
+}
+
+/* 底部第一个模块每行div */
+.div_bottom1_line {
+	float: left;
+	width: 360px;
+	height: 40px;
+	margin-left: 30px;
+	margin-top: 30px;
+}
+/* 底部第一个模块每行div的第一个div（全市取号数量） */
+.div_bottom1_line div:first-child {
+	width: 220px;
+	height: 30px;
+	text-align: right;
+	float: left;
+}
+/* 底部第一个模块每行div的第二个div（数据量） */
+.div_bottom1_line div:last-child {
+	width: 120px;
+	height: 30px;
+	text-align: right;
+	float: right;
+}
+/* 底部第一个模块每行div的第一个div（全市取号数量） */
+.div_bottom1_line div:first-child span {
+	color: white;
+	font-size: 30px;
+}
+/* 底部第一个模块每行div的第二个div（数据量） */
+.div_bottom1_line div:last-child span {
+	color: #FFB61C;
+	font-size: 36px;
+}
+/* 底部第二个模块 */
+.div_bottom2 {
+	width: 400px;
+	height: 320px;
+	position: absolute;
+	top: 456px;
+	left: 525px;
+}
+
+/* 底部第二模块bar div */
+#taxServerWindowStatistics_bar_div {
+	display: none;
+	float: left;
+	width: 100%;
+	height: 220px;
+}
+/* 底部第二模块line div */
+#taxServerWindowStatistics_line_div {
+	display: block;
+	float: left;
+	width: 100%;
+	height: 220px;
+}
+/* 底部第二模块bar */
+#taxServerWindowStatistics_bar {
+	float: left;
+	width: 100%;
+	height: 165px;
+	margin-top: 5px;
+}
+/* 底部第二模块bar 底部数据量*/
+.div_bottom2_bar_count {
+	float: left;
+	width: 100%;
+	height: 45px;
+	margin-top: 5px;
+}
+/* 底部第二模块bar 底部数据量*/
+.div_bottom2_bar_count table {
+	width: 100%;
+	height: 100%;
+}
+
+.div_bottom2_bar_count table tr {
+	height: 100%;
+}
+
+.div_bottom2_bar_count table td {
+	width: 33.3%;
+	text-align: center;
+}
+
+.div_bottom_title {
+	float: left;
+	width: 390px;
+	height: 70px;
+	margin-top: 15px;
+	margin-left: 5px;
+	background-image: url('/img/bottom_back.png');
+	background-size: 100% 100%;
+	text-align: center
+}
+
+.div_bottom_title span {
+	color: white;
+	font-size: 30px;
+	line-height: 70px;
+}
+
+/* 底部第三个模块 */
+.div_bottom3 {
+	width: 400px;
+	height: 320px;
+	position: absolute;
+	top: 456px;
+	left: 995px;
+}
+
+#bqkqtbyy_bar {
+	float: left;
+	width: 400px;
+	height: 215px;
+	margin-top: 5px;
+}
+/* 底部第四个模块 */
+.div_bottom4 {
+	width: 400px;
+	height: 188px;
+	position: absolute;
+	top: 578px;
+	left: 1470px;
+}
+
+.div_bottom4_count {
+	width: 100%;
+	height: 97px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

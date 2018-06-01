@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.wt.OnlineTaxServerDao">
+	<sql id="timeSpanSql">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			trunc(sysdate)
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			trunc(sysdate, 'yy')
+		</if>
+	</sql>
+	<!-- 主页业务受理情况 -->
+	<select id="getywslqk" parameterType="Map" resultType="Map">
+		SELECT NAME,VALUE
+		FROM (SELECT T.XM_DM, MIN(A.MC) NAME, COUNT(1) VALUE
+		FROM DB_SSSX.T_SX_SSSXSQ T, DB_XTWH.T_DM_WT_SSSX A
+		WHERE T.XM_DM = A.XM_DM
+		<![CDATA[AND T.YS_BJ <> '8']]>
+		AND T.FLZL_ZT =
+		'1'
+		AND T.ZF_BJ = '0'
+		AND T.LR_SJ >=
+		<include refid="timeSpanSql"></include>
+		AND T.SL_RQ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY T.XM_DM
+		<![CDATA[ORDER BY VALUE DESC) WHERE ROWNUM <= 5]]>
+	</select>
+
+	<!-- 实体办税服务厅的通办业务受理top5 -->
+	<select id="getHandledCountByStationRank" parameterType="Map" resultType="Map">
+		SELECT *
+		FROM (SELECT NR.ZGSWJ_DM,
+		(SELECT T.MC_J
+		FROM DB_XTWH.T_DM_GY_SWJG T
+		WHERE T.SWJG_DM = NR.ZGSWJ_DM) NAME,
+		COUNT(1) VALUE
+		FROM WSBS.T_WSBS_NSRYY YY,
+		WSBS.T_WSBS_YYXMZB ZB,
+		WSBS.T_WSBS_YYXMSL SL,
+		DB_SJTB.DJ_NSRXX NR
+		WHERE ZB.YYXM_ID = SL.YYXM_ID
+		AND SL.SL_ID = YY.SL_ID
+		AND YY.DJXH = NR.DJXH
+		AND YY.XYBZ = 'Y'
+		AND ZB.ISTS = 'Q'
+		AND YY.LRSJ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY NR.ZGSWJ_DM
+		ORDER BY VALUE DESC)
+ <![CDATA[WHERE ROWNUM <= 5]]>
+
+	</select>
+
+
+	<!-- 实体办税服务厅的通办业务量TOP5 -->
+	<select id="getHandledCountByBusinessRank" parameterType="Map" resultType="Map">
+		SELECT YYXM_ID,NAME,VALUE
+		FROM (SELECT SL.YYXM_ID, MIN(ZB.MC) NAME, COUNT(YY.YY_ID) VALUE
+		FROM WSBS.T_WSBS_NSRYY YY,
+		WSBS.T_WSBS_YYXMZB ZB,
+		WSBS.T_WSBS_YYXMSL SL
+		WHERE ZB.YYXM_ID =
+		SL.YYXM_ID
+		AND SL.SL_ID = YY.SL_ID
+		AND YY.XYBZ = 'Y'
+		AND ZB.ISTS = 'Q'
+		AND YY.LRSJ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY SL.YYXM_ID
+		ORDER BY VALUE DESC)
+ <![CDATA[WHERE ROWNUM <= 5]]>
+
+	</select>
+	<!-- 实体办税服务厅预约总量、本区预约，跨区预约 -->
+	<select id="getSubScribeStatistics" parameterType="Map" resultType="Map">
+		SELECT COUNT(1) YYZL, 
+		SUM(DECODE(ZB.ISTS, 'Q', 1, 0)) KQTBYYZL, 
+		SUM(DECODE(ZB.ISTS, 'Q', 0, 1)) BQYYZL 
+		FROM WSBS.T_WSBS_NSRYY YY, WSBS.T_WSBS_YYXMZB ZB, WSBS.T_WSBS_YYXMSL SL
+		WHERE ZB.YYXM_ID = SL.YYXM_ID
+		AND SL.SL_ID = YY.SL_ID
+		AND YY.XYBZ = 'Y'
+		AND YY.LRSJ >=
+		<include refid="timeSpanSql"></include>
+
+
+	</select>
+</mapper>
+
+
+
+
+

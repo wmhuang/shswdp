@@ -1,0 +1,29 @@
+#selectTable {
+	width: 100%;
+	height: 100%;
+}
+
+#selectTable tr{
+ 
+	height: 75px;
+}
+
+#selectTable td {
+	width:180px;
+	text-align: center;
+}
+
+#selectTable span {
+	font-size: 24px;
+	color: white;
+}
+
+.select {
+	border: #cccccc solid 1px;
+	border-radius: 10px;
+}
+
+.unselect {
+	border: none;
+	
+}

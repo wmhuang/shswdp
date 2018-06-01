@@ -122,9 +122,86 @@
 	text-align: right;
 }
 
+.syellow {
+	color: #FFB61C;
+}
+
+.white {
+	color: white;
+}
+
+.sgreen {
+	color: #88FF11;
+}
+
+.yellow {
+	color: yellow;
+}
+
+.red {
+	color: red;
+}
+
+.sblue {
+	color: #99B0D7;
+}
+
+.s26 {
+	font-size: 26px;
+}
+
+.s28 {
+	font-size: 28px;
+}
+
+.s30 {
+	font-size: 30px;
+}
+
+.s32 {
+	font-size: 32px;
+}
+
+.s36 {
+	font-size: 36px;
+}
+
+.s60 {
+	font-size: 60px;
+}
+
+.s72 {
+	font-size: 72px;
+}
+
+.s90 {
+	font-size: 90px;
+}
+
+.h42 {
+	line-height: 42px;
+}
+
+.h70 {
+	line-height: 70px;
+}
+
+.h74 {
+	line-height: 74px;
+}
+
+.h80 {
+	line-height: 80px;
+}
+
 .span_yellow_30 {
 	color: #FFB61C;
 	font-size: 30px;
+}
+
+.span_yellow_42 {
+	color: #FFB61C;
+	font-size: 42px;
 }
 
 .span_pink_26 {
@@ -141,14 +218,28 @@
 	color: #FFB61C;
 	font-size: 60px;
 }
-.span_yellow_77{
+
+.span_yellow_90 {
+	color: #FFB61C;
+	font-size: 90px;
+}
+
+.span_yellow_90_h74 {
+	color: #FFB61C;
+	font-size: 90px;
+	line-height: 74px;
+}
+
+.span_yellow_77 {
 	color: #FFB61C;
 	font-size: 77.4px;
 }
-.span_yellow_50{
+
+.span_yellow_50 {
 	color: #FFB61C;
 	font-size: 50px;
 }
+
 .span_white_20 {
 	color: white;
 	font-size: 20px;
@@ -190,6 +281,7 @@
 	color: #E5EFFF;
 	font-size: 24px;
 }
+
 .span_white_20_1 {
 	color: #E5EFFF;
 	font-size: 20px;
@@ -201,9 +293,30 @@
 	line-height: 60px;
 }
 
+.span_white_32_h80 {
+	color: white;
+	font-size: 32px;
+	line-height: 80px;
+}
+
 .span_white_36 {
 	color: white;
 	font-size: 36px;
+}
+
+.span_white_60 {
+	color: white;
+	font-size: 60px;
+}
+
+.span_white_72 {
+	color: white;
+	font-size: 72px;
+}
+
+.span_blue_28 {
+	color: #99B0D7;
+	font-size: 28px;
 }
 
 .span_logo {
@@ -421,25 +534,109 @@
 #questType_table {
 	border-collapse: collapse;
 }
-#questType_table tr{
-	height:60px;
+
+#questType_table tr {
+	height: 60px;
 }
+
 #questType_table tr td {
 	border-bottom: 1px solid rgb(106, 148, 211);
 }
 
 #index_entity_rank {
 	border-collapse: collapse;
-	width:100%;
-	text-align:center;
+	width: 100%;
+	text-align: center;
 }
-#index_entity_rank tr{
-	height:44px;
+
+#index_entity_rank tr {
+	height: 44px;
 }
+
 #index_entity_rank tr td {
-	
 	border-bottom: 1px solid rgb(106, 148, 211);
 }
-#index_entity_rank span{
-	color:white;
+
+#index_entity_rank span {
+	color: white;
+}
+/* 以下为整理过后的css */
+
+/* 排行榜内容会自动切换的title */
+.div_box_title_change {
+	width: 381px;
+	height: 42px;
+	float: left;
+	margin-top: 23px;
+	margin-left: 42px;
+	position: relative;
+	text-align: center;
+}
+
+/* 左边箭头 */
+.div_box_title_change div:first-child {
+	position: absolute;
+	width: 18px;
+	height: 26px;
+	left: 0px;
+	top: 8px;
+	background-image: url('/img/icon_go_left.png');
+	background-size: 100% 100%;
+}
+/* 右边箭头 */
+.div_box_title_change div:last-child {
+	position: absolute;
+	width: 18px;
+	height: 26px;
+	top: 8px;
+	right: 0px;
+	background-image: url('/img/icon_go_right.png');
+	background-size: 100% 100%;
+}
+
+/* 中间标题 */
+.div_box_title_change span {
+	color: white;
+	font-size: 30px;
+	line-height: 42px;
+}
+
+/* 数据div */
+.div_data {
+	width: 370px;
+	height: 284px;
+	float: left;
+	margin-top: 35px;
+	margin-left: 48px;
+}
+
+/* 数据表格 */
+.table_data {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+/* 表格的行 */
+.table_data tr {
+	height: 20%;
+	border-bottom: 1px solid rgb(106, 148, 211);
+}
+
+/* 排行榜数据左边列 */
+.table_data tr td:first-child {
+	width: 30%;
+	text-align: right;
+}
+/* 排行榜中间空隙 */
+.table_data tr td:nth-child(2) {
+	width: 10%;
+}
+/* 排行榜右边列 */
+.table_data tr td:nth-child(3) {
+	width: 60%;
+}
+/* 排行版数据字体 */
+.table_data span {
+	font-size: 30px;
+	color: white;
 }

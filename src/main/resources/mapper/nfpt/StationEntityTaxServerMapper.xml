@@ -31,10 +31,8 @@
 		db_zxxt.T_DT_CKSSTJ t,
 		db_zxxt.T_DM_DT a,
 		db_xtwh.t_dm_gy_swjg b
-		where
-		1=1
-
-		and t.swfj_dm = #{unitCode}
+		where 1=1
+		and substr(t.swfj_dm,0,7) = substr(#{unitCode},0,7)
 		<if test="busiType!='all'">
 			and t.dtywdl_dm = #{busiType}
 		</if>

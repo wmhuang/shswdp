@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.nfpt.EntityTaxServerDao">
+	<select id="getOfferCountRank" resultType="Map">
+		<!--窗口受理人数TOP5 -->
+	<![CDATA[
+		  SELECT NAME, VALUE
+			  FROM (SELECT MIN(B.MC_J) NAME, nvl(sum(A.YBLSL + A.DQDDRS), 0) VALUE
+			          FROM T_DT_DTQHTJ A, T_DM_GY_SWJG B
+			         WHERE SUBSTR(A.DT_DM, 1, 7) || '0000' = B.SWJG_DM
+			         GROUP BY B.SWJG_DM
+			         ORDER BY VALUE DESC)
+			 WHERE ROWNUM <= 5
+	]]>
+	</select>
+	<select id="getWaitingCountRank" resultType="Map">
+		<!--当前等待人数TOP5 -->
+	<![CDATA[
+		  SELECT NAME, VALUE
+			  FROM (SELECT MIN(B.MC_J) NAME, nvl(sum(A.DQDDRS), 0) VALUE
+			          FROM T_DT_DTQHTJ A, T_DM_GY_SWJG B
+			         WHERE SUBSTR(A.DT_DM, 1, 7) || '0000' = B.SWJG_DM
+			         GROUP BY B.SWJG_DM
+			         ORDER BY VALUE DESC)
+			 WHERE ROWNUM <= 5
+	]]>
+	</select>
+	<select id="getHandledCountRank" resultType="Map">
+		<!--已办理人数TOP5 -->
+	<![CDATA[
+		  SELECT NAME, VALUE
+			  FROM (SELECT MIN(B.MC_J) NAME, nvl(sum(A.YBLSL), 0) VALUE
+			          FROM T_DT_DTQHTJ A, T_DM_GY_SWJG B
+			         WHERE SUBSTR(A.DT_DM, 1, 7) || '0000' = B.SWJG_DM
+			         GROUP BY B.SWJG_DM
+			         ORDER BY VALUE DESC)
+			 WHERE ROWNUM <= 5
+	]]>
+	</select>
+	<select id="getHandledBusinessRankDay" parameterType="Map" resultType="Map">
+		<!--业务受理总量排行榜TOP5(当天) CQ(城区) JQ(郊区) -->
+		select name, value
+		from (SELECT min(b.mc_j) name, count(1) value
+		FROM T_DT_DTBLQK a, t_dm_gy_swjg b
+		where substr(a.swfj_dm, 1, 7) || '0000' = b.swjg_dm
+		<if test="local!= null and local=='CQ'">
+			and b.swjg_dm in ('13101010000',
+			'13101040000',
+			'13101050000',
+			'13101060000',
+			'13101070000',
+			'13101090000',
+			'13101100000',
+			'13101150000',
+			'13101410000',
+			'13100430000')
+		</if>
+		<if test="local!=null and local=='JQ'">
+			AND B.SWJG_DM IN ('13101120000',
+			'13101130000',
+			'13101140000',
+			'13102300000',
+			'13102280000',
+			'13102270000',
+			'13102290000',
+			'13102260000')
+		</if>
+		group by b.swjg_dm
+		order by value desc)
+			<![CDATA[ where rownum <= 5]]>
+
+
+	</select>
+	<select id="getHandledBusinessRankMonth" parameterType="Map" resultType="Map">
+		<!--业务受理总量排行榜TOP5(当月) -->
+		SELECT NAME, VALUE
+		FROM (SELECT MIN(MC_J) NAME, COUNT(1) VALUE
+		FROM (SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_DTBLQK A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) ||
+		'0000' = B.SWJG_DM
+		union all
+		SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_BLQKTJ A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) || '0000' = B.SWJG_DM
+		AND A.TJRQ >=
+		TRUNC(SYSDATE, 'MM'))
+		<if test="local!= null and local=='CQ'">
+			WHERE SWJG_DM IN ('13101010000',
+			'13101040000',
+			'13101050000',
+			'13101060000',
+			'13101070000',
+			'13101090000',
+			'13101100000',
+			'13101150000',
+			'13101410000',
+			'13100430000')
+		</if>
+
+		<if test="local!= null and local=='JQ'">
+			WHERE SWJG_DM IN ('13101120000',
+			'13101130000',
+			'13101140000',
+			'13102300000',
+			'13102280000',
+			'13102270000',
+			'13102290000',
+			'13102260000')
+		</if>
+
+		GROUP BY SWJG_DM
+		ORDER BY VALUE DESC)
+			       	<![CDATA[  WHERE ROWNUM <= 5 ]]>
+
+	</select>
+
+	<select id="getHandledBusinessRankYear" parameterType="Map" resultType="Map">
+		<!--业务受理总量排行榜TOP5(当年) -->
+		SELECT NAME, VALUE
+		FROM (SELECT MIN(MC_J) NAME, COUNT(1) VALUE
+		FROM (SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_DTBLQK A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7)
+		||'0000' = B.SWJG_DM
+		union all
+		SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_BLQKTJ A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) || '0000' = B.SWJG_DM
+		AND A.TJRQ >=
+		TRUNC(SYSDATE, 'yyyy'))
+		<if test="local!= null and local=='CQ'">
+			WHERE SWJG_DM IN ('13101010000',
+			'13101040000',
+			'13101050000',
+			'13101060000',
+			'13101070000',
+			'13101090000',
+			'13101100000',
+			'13101150000',
+			'13101410000',
+			'13100430000')
+		</if>
+
+		<if test="local!= null and local=='JQ'">
+			WHERE SWJG_DM IN ('13101120000',
+			'13101130000',
+			'13101140000',
+			'13102300000',
+			'13102280000',
+			'13102270000',
+			'13102290000',
+			'13102260000')
+		</if>
+		GROUP BY SWJG_DM
+		ORDER BY VALUE DESC)
+	<![CDATA[ WHERE ROWNUM <= 5]]>
+	</select>
+
+	<select id="getHandledBusinessTypeRankDay" resultType="Map">
+		<!--业务受理类型TOP5当日 -->
+	<![CDATA[
+		  SELECT DTYWXL_DM, NAME, VALUE
+			  FROM (SELECT B.DTYWXL_DM, MIN(B.MC) NAME, COUNT(1) VALUE
+			          FROM T_DT_DTBLQK A, T_DM_DTYWXL B
+			         WHERE A.DT_DM = B.DT_DM
+			           AND A.DTYWXL_DM = B.DTYWXL_DM
+			         GROUP BY B.DTYWXL_DM
+			         ORDER BY VALUE DESC)
+			 WHERE ROWNUM <= 5
+	]]>
+	</select>
+	<select id="getHandledBusinessTypeRankMonth" resultType="Map">
+		<!--业务受理类型TOP5当月 -->
+	<![CDATA[
+		SELECT DTYWXL_DM,NAME, VALUE
+		  FROM (SELECT DTYWXL_DM,MIN(MC) NAME, COUNT(1) VALUE
+		          FROM (SELECT A.DTYWXL_DM, B.MC
+		                  FROM T_DT_DTBLQK A, T_DM_DTYWXL B
+		                 WHERE A.DT_DM = B.DT_DM
+		                   AND A.DTYWXL_DM = B.DTYWXL_DM
+		                UNION ALL
+		                SELECT A.DTYWXL_DM, B.MC
+		                  FROM T_DT_BLQKTJ A, T_DM_DTYWXL B
+		                 WHERE A.DT_DM = B.DT_DM
+		                   AND A.DTYWXL_DM = B.DTYWXL_DM
+		                   AND A.TJRQ >= TRUNC(SYSDATE, 'MM'))
+		         GROUP BY DTYWXL_DM
+		         ORDER BY VALUE DESC)
+		 WHERE ROWNUM <= 5
+	]]>
+	</select>
+	<select id="getHandledBusinessTypeRankYear" resultType="Map">
+		<!--业务受理类型TOP5当年 -->
+	<![CDATA[
+		 SELECT DTYWXL_DM,NAME, VALUE
+		  FROM (SELECT DTYWXL_DM,MIN(MC) NAME, COUNT(1) VALUE
+		          FROM (SELECT A.DTYWXL_DM, B.MC
+		                  FROM T_DT_DTBLQK A, T_DM_DTYWXL B
+		                 WHERE A.DT_DM = B.DT_DM
+		                   AND A.DTYWXL_DM = B.DTYWXL_DM
+		                UNION ALL
+		                SELECT A.DTYWXL_DM, B.MC
+		                  FROM T_DT_BLQKTJ A, T_DM_DTYWXL B
+		                 WHERE A.DT_DM = B.DT_DM
+		                   AND A.DTYWXL_DM = B.DTYWXL_DM
+		                   AND A.TJRQ >= TRUNC(SYSDATE, 'yyyy'))
+		         GROUP BY DTYWXL_DM
+		         ORDER BY VALUE DESC)
+		 WHERE ROWNUM <= 5
+	]]>
+	</select>
+
+	<select id="getSubStationHandledBusinessTypeRankDay" parameterType="Map" resultType="Map">
+		<!--各事项按分局TOP5当天 -->
+		SELECT NAME, VALUE
+		FROM (SELECT MIN(B.MC_J) NAME, COUNT(1) VALUE
+		FROM T_DT_DTBLQK A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) || '0000' = B.SWJG_DM
+		AND A.DTYWXL_DM = #{ywlxDm}
+		GROUP BY B.SWJG_DM
+		ORDER BY VALUE DESC)
+ 	<![CDATA[WHERE ROWNUM <= 5]]>
+	</select>
+	<select id="getSubStationHandledBusinessTypeRankMonth" parameterType="Map" resultType="Map">
+		<!--各事项按分局TOP5当月 -->
+		SELECT NAME, VALUE
+		FROM (SELECT MIN(MC_J) NAME, COUNT(1) VALUE
+		FROM (SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_DTBLQK A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) ||
+		'0000' = B.SWJG_DM
+		union all
+		SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_BLQKTJ A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) || '0000' = B.SWJG_DM
+		AND A.TJRQ >=
+		TRUNC(SYSDATE, 'MM'))
+		WHERE DTYWXL_DM = #{ywlxDm}
+		GROUP BY SWJG_DM
+		ORDER BY VALUE DESC)
+ <![CDATA[WHERE ROWNUM <= 5]]>
+
+	</select>
+
+	<select id="getSubStationHandledBusinessTypeRankYear" parameterType="Map" resultType="Map">
+		<!--各事项按分局TOP5当年 -->
+		SELECT NAME, VALUE
+		FROM (SELECT MIN(MC_J) NAME, COUNT(1) VALUE
+		FROM (SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_DTBLQK A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) ||
+		'0000' = B.SWJG_DM
+		union all
+		SELECT A.LSH, A.DTYWXL_DM, B.SWJG_DM, B.MC_J
+		FROM T_DT_BLQKTJ A, T_DM_GY_SWJG B
+		WHERE SUBSTR(A.SWFJ_DM, 1, 7) || '0000' = B.SWJG_DM
+		AND A.TJRQ >=
+		TRUNC(SYSDATE, 'yyyy'))
+		WHERE DTYWXL_DM = #{ywlxDm}
+		GROUP BY SWJG_DM
+		ORDER BY VALUE DESC)
+ <![CDATA[WHERE ROWNUM <= 5]]>
+	</select>
+
+
+
+
+	<select id="getHandledCountByStationRank" resultType="Map">
+		<!--全市通办分局TOP5 -->
+	<![CDATA[
+		  select name,value from rank
+	]]>
+	</select>
+
+	<select id="getHandledCountByBusinessRank" resultType="Map">
+		<!--全市通办业务量TOP5 -->
+	<![CDATA[
+		  select name,value from rank
+	]]>
+	</select>
+	<select id="getOfferHandledWaittingCount" resultType="Map">
+		<!--全市取号人数，已办理人数，当前等待人数 -->
+	<![CDATA[
+		 SELECT NVL(SUM(QHSL), 0) QHSL,
+		       NVL(SUM(YBLSL), 0) YBLSL,
+		       NVL(SUM(DQDDRS), 0) DQDDRS
+		  FROM T_DT_DTQHTJ
+	]]>
+	</select>
+	<select id="getTaxServerWindowStatistics" resultType="Map">
+		<!--办税大厅窗口情况 -->
+	<![CDATA[
+		  select 3412 as OPEN,4432 as PAUSE, 789 as CLOSE from dual
+	]]>
+	</select>
+	<select id="getSubscribeByAreaCount" resultType="Map">
+		<!--本区预约/跨区通办预约 -->
+	<![CDATA[
+		  select 3412 as LOCAL,4432 as NONLOCAL from dual
+	]]>
+	</select>
+	<select id="getSubScribeTodayStatistics" resultType="Map">
+		<!--当日预约办理情况 -->
+	<![CDATA[
+		  select 273123 as COUNT from dual
+	]]>
+	</select>
+
+	<select id="getDqbsfwtrs" resultType="Map">
+		<!--主页 当前办税服务厅人数 -->
+	<![CDATA[
+		  SELECT NVL(SUM(T.YBLSL+T.DQDDRS),0) as count FROM T_DT_DTQHTJ T
+	]]>
+	</select>
+
+</mapper>
+
+
+
+
+

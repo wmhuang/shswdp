@@ -40,13 +40,29 @@ function setTimeSpan(timeSpan) {
 		},
 		success : function(data) {
 			// 刷新当前页面的div 通过全局变量CURRENT_PAGE_NAME判断 传入的参数大家请随意
+			// alert(CURRENT_PAGE_NAME);
 			switch (CURRENT_PAGE_NAME) {
-
+			case "indexPage":
+				getYwslqk("1");
+				break;
+			case "entityTaxServer":
+				break;
+			case "onlineTaxServer":
+				break;
+			case "selfHelpTaxServer":
+				break;
+			case "taxServerStatistics12366":
+				// 市局12366
+				getCallCount("1");
+				getCallSuccess("1");
+				getCallDegree("1");
+				getHotQuestion("1");
+				break;
 			case "indexPage_station":
 				// 实体
 				getTotalCount("1");
 
-				// 网厅  
+				// 网厅
 				getHanldedCount("1");
 				getBusinessTypePersent("1");
 

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="import" th:href="@{/view/common}">
+<link rel="stylesheet" type="text/css" href="../static/css/public.css" th:href="@{/css/public.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/indexMain.css" th:href="@{/css/indexMain.css}">
+<script th:src="@{/js/main/index.js}"></script>
+<title>上海税务大屏展示</title>
+</head>
+<body>
+	<input id="timeSpan_input" type="hidden" th:value="${timeSpan}" />
+	<div class="container" style="position: relative;">
+		<!-- 	头部 -->
+		<div style="width: 100%; height: 175px">
+			<!--左上角logo -->
+			<div id="logo_div" onclick="go_index(event)" style="position: absolute; height: 77px; width: 283px; left: 55px; top: 37px; background: url(/img/shswfp_logo.png); background-size: cover;"></div>
+			<!--中上标题 -->
+			<div style="position: absolute; height: 70px; width: 1000px; left: 460px; top: 43px; text-align: center;">
+				<img id="title_logo" th:src="@{/img/icon_entityTaxServer.png}" src="/img/icon_entityTaxServer.png"></img>
+				<span>&nbsp;&nbsp;</span>
+				<span id="title_text" style="color: white; font-size: 50px; line-height: 70px">首页</span>
+				<span>&nbsp;&nbsp;</span>
+				<img th:src="@{/img/icon_down_arrow.png}" src="/img/icon_down_arrow.png" onclick="selectStation()" />
+
+			</div>
+			<!-- 右上角时间戳 -->
+			<div style="position: absolute; height: 140px; width: 340px; left: 1543px; top: 56px;">
+				<div class="div_timeSpan" style="margin-right: 40px">
+					<img id="timeSpan_D" src="/img/icon_D_1.png" th:src="@{/img/icon_D_1.png}">
+				</div>
+				<div class="div_timeSpan">
+					<img id="timeSpan_M" src="/img/icon_M_1.png" th:src="@{/img/icon_M_1.png}">
+				</div>
+				<div class="div_timeSpan">
+					<img id="timeSpan_Y" src="/img/icon_Y_1.png" th:src="@{/img/icon_Y_1.png}">
+				</div>
+				<div style="float: left; height: 70px; width: 330px; margin-top: 6px;">
+					<span style="color: white; font-size: 20px;">
+						&nbsp;&nbsp;
+						<label id="date"></label>
+						&nbsp;&nbsp;
+						<label id="week"></label>
+						&nbsp;&nbsp;
+						<label id="time"></label>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!--中部 -->
+		<div id="index" class="center_body">
+			<!--主页 -->
+			<iframe id="pageIframe" src="/view/indexPage" frameborder="0" scrolling="no" width="1920px" height="775px"> </iframe>
+		</div>
+		<!-- 尾部 -->
+		<div class="div_bottom">
+			<table>
+				<tr>
+					<td><img id="go_entityTaxServer" src="/img/nav_b_entityTaxServer_2.png" th:src="@{/img/nav_b_entityTaxServer_2.png}" /></td>
+					<td><img id="go_onlineTaxServer" src="/img/nav_b_onlineTaxServer_2.png" th:src="@{/img/nav_b_onlineTaxServer_2.png}" /></td>
+					<td><img id="go_selfHelpTaxServer" src="/img/nav_b_selfHelpTaxServer_2.png" th:src="@{/img/nav_b_selfHelpTaxServer_2.png}" /></td>
+					<td><img id="go_taxServerStatistics12366" src="/img/nav_b_taxServerStatistics12366_2.png" th:src="@{/img/nav_b_taxServerStatistics12366_2.png}" /></td>
+				</tr>
+			</table>
+		</div>
+		<div id="selectDiv" style="display: none; position: absolute; top: 0px; background: rgba(0, 0, 0, 0.3);; width: 1920px; height: 1080px; z-index: 888;">
+			<div
+				style="z-index: 999; top: 254px; left: 247px; position: absolute; width: 1426px; height: 571px; border-radius: 30px; opacity: 1; background-image: linear-gradient(-180deg, #2A59AE 0%, #153F8C 98%); border: 3px solid rgba(255, 255, 255, 0.50); border-radius: 41px;">
+				<div style="width: 100%; height: 57px; margin-top: 50px; display: flex; justify-content: center; align-items: center;">
+					<img style="" src="/img/icon_index_1.png" />
+					<span class="span_white_30" style="line-height: 57px; margin-left: 22px;">数据查看范围选择</span>
+				</div>
+				<div style="width: 1250px; height: 300px; margin-top: 50px; margin-left: 113px;">
+					<table id="selectTable">
+						<tr>
+							<td id="13100000000"><img src="/img/startMain.png" />
+								<span>&nbsp;&nbsp;市税务局</span></td>
+						</tr>
+						<tr>
+							<td id="13101150000"><span>浦东新区税务局</span></td>
+							<td id="13101010000"><span>黄浦区税务局</span></td>
+							<td id="13101040000"><span>徐汇区税务局</span></td>
+							<td id="13101060000"><span>静安区税务局</span></td>
+							<td id="13101050000"><span>长宁区税务局</span></td>
+							<td id="13101070000"><span>普陀区税务局</span></td>
+							<td id="13101090000"><span>虹口区税务局</span></td>
+						</tr>
+						<tr>
+							<td id="13101100000"><span>杨浦区税务局</span></td>
+							<td id="13101130000"><span>宝山区税务局</span></td>
+							<td id="13101120000"><span>闵行区税务局</span></td>
+							<td id="13101140000"><span>嘉定区税务局</span></td>
+							<td id="13102280000"><span>金山区税务局</span></td>
+							<td id="13102270000"><span>松江区税务局</span></td>
+							<td id="13102290000"><span>青浦区税务局</span></td>
+						</tr>
+						<tr>
+							<td id="13102260000"><span>奉贤区税务局</span></td>
+							<td id="13102300000"><span>崇明区税务局</span></td>
+							<td id="13100460000"><span>市税务二分局</span></td>
+							<td id="13100430000"><span>市税务三分局</span></td>
+							<td id="13101410000"><span>保税区税务分局</span></td>
+						</tr>
+					</table>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		CURRENT_PAGE_NAME = "indexPage";
+		var pages = new Array("entityTaxServer", "onlineTaxServer", "selfHelpTaxServer", "taxServerStatistics12366");
+		// 底部按钮添加鼠标经过事件
+		function initBottomBtn(a) {
+			$("#go_" + a).attr("src", "/img/nav_b_" + a + "_2.png");
+			$("#go_" + a).bind("mouseover", function() {
+				this.src = "/img/nav_b_" + a + "_1.png"
+			});
+			$("#go_" + a).bind("click", function() {
+				go_page(this.id);
+			});
+			$("#go_" + a).bind("mouseout", function() {
+				this.src = "/img/nav_b_" + a + "_2.png"
+			});
+		}
+
+		function initSomeBottomBtn(a) {
+			for ( var i in pages) {
+				if (a != pages[i]) {
+					initBottomBtn(pages[i]);
+				} else {
+					$("#title_logo").attr("src", "/img/icon_" + a + ".png");
+					$("#go_" + a).attr("src", "/img/nav_b_" + a + "_1.png");
+					$("#go_" + a).unbind("mouseout");
+				}
+			}
+		}
+		initSomeBottomBtn();
+		function changePageStyle(a) {
+			//页面标题修改
+			//页面图标修改
+			//底部图标变亮色 移除点击和鼠标经过事件
+			//底部其他图标恢复原状
+			initSomeBottomBtn(a);
+			switch (a) {
+			case "indexPage":
+				$("#title_text").html("首页");
+				break;
+			case "entityTaxServer":
+				$("#title_text").html("实体办税服务厅");
+				break;
+			case "onlineTaxServer":
+				$("#title_text").html("网上办税服务厅");
+				break;
+			case "selfHelpTaxServer":
+				$("#title_text").html("自助办税服务终端");
+				break;
+			case "taxServerStatistics12366":
+				$("#title_text").html("12366热线");
+				break;
+			default:
+				$("#title_text").html("首页");
+			}
+		}
+
+		function pageController(a) {
+			changePageStyle(a);
+			$("#pageIframe").attr("src", "/view/" + a);
+		}
+
+		//页面切换
+		function go_index(event) {
+			pageController("indexPage");
+		}
+
+		function go_page(pageId) {
+			//pageId  为 go_pageName格式的 截取有效的pageName
+			CURRENT_PAGE_NAME = pageId.substring(3);
+			pageController(pageId.substring(3));
+		}
+	</script>
+	<script th:src="@{/js/common/common.js}"></script>
+	<script th:src="@{/js/main/taxServerStatistics12366.js}"></script>
+	<script th:src="@{/js/main/indexPage.js}"></script>
+	<script th:src="@{/js/main/entityTaxServer.js}"></script>
+</body>
+</html>

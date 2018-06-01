@@ -1,14 +1,14 @@
 //来电总量 人工服务量 自动语音服务量
 function getCallCount(isIndex) {
 	$.ajax({
-		url : ctx + '/station12366/getCallCount',
+		url : ctx + '/taxServer12366/getCallCount',
 		dataType : "json",
 		success : function(data) {
 			if (typeof (isIndex) == "undefined") {
 				// 首次加载
-				$("#ldzl_value").html(data.LDZL);
-				$("#rgyyfwl_value").html(data.RGYYFWL);
-				$("#zdyyfwl_value").html(data.ZDYYFWL);
+				$("#ldzl_value").html(forInt(data.LDZL));
+				$("#rgyyfwl_value").html(forInt(data.RGYYFWL));
+				$("#zdyyfwl_value").html(forInt(data.ZDYYFWL));
 			} else {
 				// 点击年月日加载
 				$("#pageIframe").contents().find("#ldzl_value").html(forInt(data.LDZL));
@@ -23,7 +23,7 @@ function getCallCount(isIndex) {
 function getCallSuccess(isIndex) {
 
 	$.ajax({
-		url : ctx + '/station12366/getCallSuccess',
+		url : ctx + '/taxServer12366/getCallSuccess',
 		dataType : "json",
 		success : function(data) {
 			if (typeof (isIndex) == "undefined") {
@@ -41,7 +41,7 @@ function getCallSuccess(isIndex) {
 function getCallDegree(isIndex) {
 
 	$.ajax({
-		url : ctx + '/station12366/getCallDegree',
+		url : ctx + '/taxServer12366/getCallDegree',
 		dataType : "json",
 		success : function(data) {
 			if (typeof (isIndex) == "undefined") {
@@ -57,7 +57,7 @@ function getCallDegree(isIndex) {
 // 首页来电总量
 function getCallCountTotal(isIndex) {
 	$.ajax({
-		url : ctx + '/station12366/getCallCount',
+		url : ctx + '/taxServer12366/getCallCount',
 		dataType : "json",
 		success : function(data) {
 			if (typeof (isIndex) == "undefined") {
@@ -75,7 +75,7 @@ function getCallCountTotal(isIndex) {
 // 首页当前来电人数
 function getCurrentCallNum(isIndex) {
 	$.ajax({
-		url : ctx + '/station12366/getCurrentCallNum',
+		url : ctx + '/taxServer12366/getCurrentCallNum',
 		dataType : "json",
 		success : function(data) {
 			if (typeof (isIndex) == "undefined") {
@@ -125,7 +125,7 @@ function getHotQuestion(isIndex) {
 	var bool = true;
 	$.ajax({
 		type : "get",
-		url : ctx + "/station12366/getHotQuestion",
+		url : ctx + "/taxServer12366/getHotQuestion",
 		async : false,
 		data : {},
 		dataType : "json",
@@ -281,13 +281,13 @@ function getRanksTable(json,isIndex) {
 			break;
 		}
 		var questionName = json[i].EJMC;
-		var questionCount = json[i].SL;
+		var questionCount = forInt(json[i].SL);
 		var questionPersent1 = json[i].SL / total;
 		var questionPersent2 = questionPersent1 * 100;
 
 		questionPersent2 = questionPersent2.toFixed(2) + "%";
 
-		var tableTrHtml = "<tr >\n" + "<td width='200px'><span class='span_white_26'>" + questionName + "</span></td>\n" + "<td width='70px'><span class='span_white_26'>"
+		var tableTrHtml = "<tr >\n" + "<td width='200px'><span class='span_white_26'>" + questionName + "</span></td>\n" + "<td width='100px'><span class='span_white_26'>"
 				+ questionCount + "</span></td>\n" + " <td width='100px'><span class='span_white_26'>" + questionPersent2 + "</span></td>\n" + "</tr>";
 		tableHtml += tableTrHtml;
 	}
@@ -400,7 +400,7 @@ function getQuestionTypePersent(isIndex) {
 	};
 	$.ajax({
 		type : "get",
-		url : ctx + "/station12366/getQuestionTypePersent",
+		url : ctx + "/taxServer12366/getQuestionTypePersent",
 		async : false,
 		dataType : "json",
 		success : function(data) {
