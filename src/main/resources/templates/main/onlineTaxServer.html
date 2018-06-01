@@ -41,7 +41,7 @@
 		<!-- 标题 -->
 		<div class="div_box_title_change">
 			<div></div>
-			<span id="station_online_1_rank">跨区通办预约TOP5</span>
+			<span id="station_online_1_rank">通办预约分局TOP5</span>
 			<div></div>
 		</div>
 		<!-- 数据 -->
@@ -121,7 +121,7 @@
 		</div>
 		<!-- 数据 top5-->
 		<div id="handledBusiness_rank" class="div_data">
-			<table id="station_online_3_table" class="table_data">
+			<table class="table_data table_data_small" id="station_online_3_table">
 				<tr>
 					<td><span></span></td>
 					<td></td>
@@ -153,12 +153,12 @@
 	<div class="div_center_box4">
 		<div class="div_box_title_change">
 			<div></div>
-			<span id="handledBusiness_title">各区网厅业务TOP5</span>
+			<span id="handledBusinessStation_title">网厅业务TOP5</span>
 			<div></div>
 		</div>
 		<!-- 数据 top5-->
 		<div id="handledBusiness_rank" class="div_data">
-			<table id="station_online_4_table" class="table_data">
+			<table id="station_online_4_table" class="table_data table_data_small">
 				<tr>
 					<td><span></span></td>
 					<td></td>
@@ -196,61 +196,62 @@
 		<div class="div_bottom2_div1">
 			<img src="/img/icon_yuyue.png" />
 			<div>
-				<span>274,005</span>
+				<span id="zzsfpdk"></span>
 			</div>
 			<div>
-				<span>重点事项实时办理量</span>
+				<span>增值税发票代开</span>
 			</div>
 		</div>
 		<div class="div_bottom2_split"></div>
 		<div class="div_bottom2_div2">
 			<div class="div_harf_height">
 				<div>
-					<span>事项名称1</span>
+					<span>跨区域涉税事项报告</span>
 				</div>
 				<div>
-					<span>1,221</span>
+					<span id="kqysssxbg"></span>
 				</div>
 			</div>
 			<div class="div_harf_height">
 				<div>
-					<span>事项名称2</span>
+					<span>最高开票限额审批</span>
 				</div>
 				<div>
-					<span>1,221</span>
+					<span id="zgkpxesp"></span>
 				</div>
 			</div>
 		</div>
 		<div class="div_bottom2_div2">
 			<div class="div_harf_height">
 				<div>
-					<span>事项名称3</span>
+					<span>一般纳税人登记</span>
 				</div>
 				<div>
-					<span>1,221</span>
+					<span id="ybnsrdj"> </span>
 				</div>
 			</div>
 			<div class="div_harf_height">
 				<div>
-					<span>事项名称4</span>
+					<span>发票票种核定</span>
 				</div>
 				<div>
-					<span>1,221</span>
+					<span id="fpszhd"></span>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-		$(function() {
+		function initChange() {
 			getAllMaps();
-			getHandledByAreaRank();
-			getOfferNumByWeChatRank();
 			getHandldedRank();
-			getHandledCountRealTime();
-			//柱状图数据
-			handledByOtherArea();
-			//折线图
-			// 			stationOnlineTaxServerCountLine();
+			getBusinessRankByStation();
+			getOfferNumByWeChatRank();
+			getHandledByAreaRank();
+			getZdsxbll();
+		}
+		$(function() {
+			initChange();
+			window.setInterval(initChange, 10000)
 		})
 	</script>
 </body>

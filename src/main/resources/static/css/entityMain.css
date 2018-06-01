@@ -35,8 +35,6 @@
 	background: url(/img/bg4.png);
 }
 
-
-
 /* 第二个排行榜会和饼形图切换 此为饼形图的样式 */
 .div_box_2_pie {
 	width: 370px;
@@ -54,18 +52,6 @@
 .box_table_right_1 {
 	width: 70%;
 	text-align: right;
-}
-/* 第三个排行榜右边文字量不叫多 特殊处理 */
-.table_data_small tr td:first-child {
-	width: 20%;
-}
-/* 第三个排行榜右边文字量不叫多 特殊处理 */
-.table_data_small tr td:last-child {
-	width: 70%;
-}
-/* 第三个排行榜右边文字量不叫多 特殊处理 */
-.table_data_small tr td:last-child span {
-	font-size: 24px;
 }
 
 /* 底部第一个模块 */

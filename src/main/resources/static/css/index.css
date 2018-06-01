@@ -640,3 +640,16 @@
 	font-size: 30px;
 	color: white;
 }
+
+/* 排行榜右边文字量比较多 特殊处理 */
+.table_data_small tr td:first-child {
+	width: 20%;
+}
+/* 排行榜右边文字量比较多 特殊处理 */
+.table_data_small tr td:last-child {
+	width: 70%;
+}
+/* 排行榜右边文字量比较多 特殊处理 */
+.table_data_small tr td:last-child span {
+	font-size: 24px;
+}

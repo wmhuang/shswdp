@@ -77,18 +77,204 @@
 	</select>
 	<!-- 实体办税服务厅预约总量、本区预约，跨区预约 -->
 	<select id="getSubScribeStatistics" parameterType="Map" resultType="Map">
-		SELECT COUNT(1) YYZL, 
-		SUM(DECODE(ZB.ISTS, 'Q', 1, 0)) KQTBYYZL, 
-		SUM(DECODE(ZB.ISTS, 'Q', 0, 1)) BQYYZL 
+		SELECT COUNT(1) YYZL,
+		SUM(DECODE(ZB.ISTS, 'Q', 1, 0)) KQTBYYZL,
+		SUM(DECODE(ZB.ISTS, 'Q', 0, 1)) BQYYZL
 		FROM WSBS.T_WSBS_NSRYY YY, WSBS.T_WSBS_YYXMZB ZB, WSBS.T_WSBS_YYXMSL SL
-		WHERE ZB.YYXM_ID = SL.YYXM_ID
+		WHERE
+		ZB.YYXM_ID = SL.YYXM_ID
 		AND SL.SL_ID = YY.SL_ID
 		AND YY.XYBZ = 'Y'
 		AND YY.LRSJ >=
 		<include refid="timeSpanSql"></include>
+	</select>
 
+	<!-- 预约总量 -->
+	<select id="getBespeakNum" parameterType="Map" resultType="Map">
+		select count(1) yyzl,
+		nvl(sum(decode(zb.ists, 'Q', 1, 0)),0) kqtbyyzl,
+		nvl(sum(decode(zb.ists, 'Q', 0, 1)),0) bqyyzl
+		from wsbs.t_wsbs_nsryy
+		yy,
+		wsbs.T_WSBS_YYXMZB zb,
+		wsbs.t_wsbs_yyxmsl sl,
+		wsbs.t_wsbs_yydj_bsdt
+		dt
+		where zb.yyxm_id = sl.yyxm_id
+		and sl.sl_id = yy.sl_id
+		and sl.yydtdm =
+		dt.bh
+		and yy.xybz = 'Y'
+		and yy.lrsj >=
+		<include refid="timeSpanSql"></include>
+	</select>
+
+	<!-- 税企互动总量 -->
+	<select id="getTaxAndCominteractNum" parameterType="Map" resultType="Map">
+		select count(1) sqhdzl
+		from db_wshd.t_wshd_sqtxxzb t
+		where 1=1
+		and t.fssj
+		>=
+		<include refid="timeSpanSql"></include>
+	</select>
+
+	<!-- 业务受理总量 -->
+	<select id="getHanldedCount" parameterType="Map" resultType="Map">
+		select count(1) ywslzl
+		from DB_SSSX.t_sx_sssxsq t
+		where t.ys_bj &lt;>
+		'8'
+		and t.flzl_zt = '1'
+		and t.zf_bj = '0'
+		and t.lr_sj>=
+		<include refid="timeSpanSql"></include>
+		and t.sl_rq >=
+		<include refid="timeSpanSql"></include>
+	</select>
+
+	<!-- 微信取号总量 -->
+	<select id="getOfferTotalCountByWeChat" parameterType="Map" resultType="Map">
+		select count(1) wxqhzl
+		from DB_XTWH.T_XCX_QHXX t
+		where 1=1
+		and t.lr_sj >=
+		<include refid="timeSpanSql"></include>
+	</select>
+
+	<!-- 业务受理总量TOP5 -->
+	<select id="getHandldedRank" parameterType="Map" resultType="Map">
+		SELECT NAME,VALUE
+		FROM (SELECT T.XM_DM, MIN(A.MC) NAME, COUNT(1) VALUE
+		FROM DB_SSSX.T_SX_SSSXSQ T, DB_XTWH.T_DM_WT_SSSX A
+		WHERE T.XM_DM = A.XM_DM
+          <![CDATA[  AND T.YS_BJ <> '8']]>
+		AND T.FLZL_ZT = '1'
+		AND T.ZF_BJ = '0'
+		AND T.LR_SJ >=
+		<include refid="timeSpanSql"></include>
+		AND T.SL_RQ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY T.XM_DM
+         <![CDATA[ ORDER BY VALUE DESC) WHERE ROWNUM <= 5]]>
+	</select>
+	<!-- 各区网厅业务 -->
+	<select id="getBusinessRankByStation" parameterType="Map" resultType="Map">
+		SELECT SWJGJC, XM_DM, NAME, VALUE, XH
+		FROM (SELECT SWJGJC,
+		XM_DM,
+		NAME,
+		VALUE,
+		ROW_NUMBER() OVER(PARTITION BY SWJG_DM ORDER BY VALUE DESC) XH
+		FROM (SELECT B.SWJG_DM,
+		MIN(B.SWJGJC)
+		SWJGJC,
+		T.XM_DM,
+		MIN(A.MC) NAME,
+		COUNT(1) VALUE
+		FROM DB_SSSX.T_SX_SSSXSQ T,
+		DB_XTWH.T_DM_WT_SSSX A,
+		DB_SJTB.DM_GY_SWJG B
+		WHERE T.XM_DM = A.XM_DM
+		AND B.SWJG_DM = #{swjgDm}
+                   <![CDATA[ AND T.YS_BJ <> '8']]>
+		AND T.FLZL_ZT = '1'
+		AND T.ZF_BJ = '0'
+		AND T.LR_SJ >=
+		<include refid="timeSpanSql"></include>
+		AND T.SL_RQ >=
+		<include refid="timeSpanSql"></include>
+		AND SUBSTR(T.SLSWJG_DM, 1, 7) || '0000' = B.SWJG_DM
+		GROUP BY B.SWJG_DM, T.XM_DM))
+ <![CDATA[ WHERE XH <= 5]]>
+	</select>
+
+	<!-- 微信取号排行榜 -->
+	<select id="getOfferNumByWeChatRank" parameterType="Map" resultType="Map">
+		SELECT *
+		FROM (SELECT B.YWMC NAME, COUNT(1) VALUE
+		FROM DB_XTWH.T_XCX_QHXX A, DB_XTWH.T_DM_XCX_SSYWDM B
+		WHERE A.BSYWXLDM = B.YWDM
+		AND A.LR_SJ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY B.YWMC
+		ORDER BY VALUE DESC)
+ 	 <![CDATA[WHERE ROWNUM <= 5]]>
+	</select>
+	<!-- 通办预约分局TOP5 -->
+	<select id="getTbyyfj" parameterType="Map" resultType="Map">
+		SELECT *
+		FROM (SELECT NR.ZGSWJ_DM,
+		(SELECT T.MC_J
+		FROM DB_XTWH.T_DM_GY_SWJG T
+		WHERE T.SWJG_DM = NR.ZGSWJ_DM) NAME,
+		COUNT(1) VALUE
+		FROM WSBS.T_WSBS_NSRYY YY,
+		WSBS.T_WSBS_YYXMZB ZB,
+		WSBS.T_WSBS_YYXMSL SL,
+		DB_SJTB.DJ_NSRXX NR
+		WHERE ZB.YYXM_ID = SL.YYXM_ID
+		AND SL.SL_ID = YY.SL_ID
+		AND YY.DJXH = NR.DJXH
+		AND YY.XYBZ = 'Y'
+		AND ZB.ISTS = 'Q'
+		AND YY.LRSJ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY NR.ZGSWJ_DM
+		ORDER BY VALUE DESC)
+	 <![CDATA[WHERE ROWNUM <= 5]]>
 
 	</select>
+	<!-- 本区预约分局TOP5 -->
+	<select id="getBqyyfj" parameterType="Map" resultType="Map">
+		SELECT *
+		FROM (SELECT NR.ZGSWJ_DM,
+		(SELECT T.MC_J
+		FROM DB_XTWH.T_DM_GY_SWJG T
+		WHERE T.SWJG_DM = NR.ZGSWJ_DM) NAME,
+		COUNT(1) VALUE
+		FROM WSBS.T_WSBS_NSRYY YY,
+		WSBS.T_WSBS_YYXMZB ZB,
+		WSBS.T_WSBS_YYXMSL SL,
+		DB_SJTB.DJ_NSRXX NR
+		WHERE ZB.YYXM_ID = SL.YYXM_ID
+		AND SL.SL_ID = YY.SL_ID
+		AND YY.DJXH = NR.DJXH
+		AND YY.XYBZ = 'Y'
+		AND ZB.ISTS in ('Y','N')
+		AND YY.LRSJ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY NR.ZGSWJ_DM
+		ORDER BY VALUE DESC)
+ <![CDATA[WHERE ROWNUM <= 5]]>
+	</select>
+
+	<!-- 重点事项办理量 _增值税发票代开 -->
+	<select id="getZdsxbllZzsfpdk" parameterType="Map" resultType="Map">
+		SELECT COUNT(1) VALUE
+		FROM DB_WZGL.FP_DK_SQ A
+		WHERE A.DKFPLB_DM IN ('01')
+		AND A.ZFBZ_1 = 'N'
+		AND A.SQRQ >=
+		<include refid="timeSpanSql"></include>
+	</select>
+
+	<!-- 重点事项办理量 -->
+	<select id="getZdsxbll" parameterType="Map" resultType="Map">
+		SELECT T.XM_DM,A.MC NAME ,COUNT(1) VALUE
+		FROM DB_SSSX.T_SX_SSSXSQ T,DB_XTWH.T_DM_WT_SSSX A
+		WHERE T.XM_DM = A.XM_DM
+		AND T.XM_DM IN ('RCGL2008','RCGL1932','RCGL1939','RCGL1937')
+		<![CDATA[AND T.YS_BJ <>'8']]>
+		AND T.FLZL_ZT = '1'
+		AND T.ZF_BJ = '0'
+		AND T.LR_SJ >=
+		<include refid="timeSpanSql"></include>
+		AND T.SL_RQ >=
+		<include refid="timeSpanSql"></include>
+		GROUP BY T.XM_DM,A.MC
+	</select>
+
 </mapper>
 
 
