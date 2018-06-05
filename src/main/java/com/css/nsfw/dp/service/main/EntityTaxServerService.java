@@ -140,12 +140,6 @@ public class EntityTaxServerService {
 		return entityTaxServerDao.getTaxServerWindowStatistics();
 	}
 
-	// 本区预约/跨区通办预约
-	public Map getSubscribeByAreaCount() {
-
-		return entityTaxServerDao.getSubscribeByAreaCount();
-	}
-
 	// 当日预约办理情况
 	public Map getSubScribeStatistics(String timeSpan) {
 		Map result = new HashMap();

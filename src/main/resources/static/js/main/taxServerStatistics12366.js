@@ -130,7 +130,6 @@ function getHotQuestion(isIndex) {
 		data : {},
 		dataType : "json",
 		success : function(json) {
-			console.log(json);
 			jsons = json;
 			// 处理表格
 			getRanksTable(json,isIndex);

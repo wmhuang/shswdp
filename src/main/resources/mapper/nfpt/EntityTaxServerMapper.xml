@@ -291,22 +291,10 @@
 	<select id="getTaxServerWindowStatistics" resultType="Map">
 		<!--办税大厅窗口情况 -->
 	<![CDATA[
-		  select 3412 as OPEN,4432 as PAUSE, 789 as CLOSE from dual
+		  select 3412 as OPEN,1432 as PAUSE, 789 as CLOSE from dual
 	]]>
 	</select>
-	<select id="getSubscribeByAreaCount" resultType="Map">
-		<!--本区预约/跨区通办预约 -->
-	<![CDATA[
-		  select 3412 as LOCAL,4432 as NONLOCAL from dual
-	]]>
-	</select>
-	<select id="getSubScribeTodayStatistics" resultType="Map">
-		<!--当日预约办理情况 -->
-	<![CDATA[
-		  select 273123 as COUNT from dual
-	]]>
-	</select>
-
+	 
 	<select id="getDqbsfwtrs" resultType="Map">
 		<!--主页 当前办税服务厅人数 -->
 	<![CDATA[

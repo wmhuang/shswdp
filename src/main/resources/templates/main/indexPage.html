@@ -17,9 +17,9 @@
 	<div class="div_left">
 		<table id="table_left" cellspacing="20">
 			<tr>
-				<td><span class="sgreen s72">2,688</span></td>
-				<td><span class="yellow s60">688</span></td>
-				<td><span class="red s60">88</span></td>
+				<td><span class="sgreen s72" id="openCount"></span></td>
+				<td><span class="yellow s60" id="pauseCount"></span></td>
+				<td><span class="red s60" id="closeCount"></span></td>
 			</tr>
 			<tr>
 				<td><span>开启</span></td>
@@ -71,7 +71,7 @@
 		$(function() {
 			getDqbsfwtrs();
 			getYwslqk();
-
+			getTaxServerWindowStatistics();
 		})
 	</script>
 </body>

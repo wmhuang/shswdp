@@ -10,6 +10,8 @@
 }
 
 .div_ywslzl_count {
+	height:60px;
+	width:200px;
 	margin-top: 3px;
 	margin-left: 220px
 }
@@ -59,7 +61,7 @@
 	margin-left: 47px;
 }
 
-.div_left_bottom_div1_div2 {
+.div_left_bottom_div2 {
 	float: left;
 	height: 121px;
 	width: 3px;
@@ -67,32 +69,59 @@
 	background: #6C99E0;
 }
 
-.div_left_bottom_div1_div3 {
+.div_left_bottom_div3 {
 	float: left;
-	width: 447px;
+	width: 895px;
 	height: 100%;
 }
 
-.div_left_bottom_div1_div3 .div_harf_height div:first-child {
+.div_left_bottom_div3 div {
 	float: left;
-	height: 42px;
-	margin-top: 30px;
-	margin-left: 48px;
+	width: 33%;
+	margin-top: 43px;
+	height: 100px;
+	text-align: center;
 }
 
-.div_left_bottom_div1_div3 .div_harf_height div:last-child {
-	float: left;
-	height: 42px;
-	margin-top: 30px;
-	margin-left: 48px;
-}
-
-.div_left_bottom_div1_div3 .div_harf_height div:first-child span {
-	color: white;
-	font-size: 30px;
-}
-
-.div_left_bottom_div1_div3 .div_harf_height div:last-child span {
+.div_left_bottom_div3 div span:first-child {
 	color: #FFB61C;
 	font-size: 36px;
+	line-height: 60px;
+}
+
+.div_left_bottom_div3 div span:last-child {
+	color: white;
+	font-size: 30px;
+	line-height: 40px;
+}
+
+.select {
+	float: left;
+	width: 140px;
+	height: 73px;
+	background-image: url('/img/bg_btn_2.png');
+	background-repeat: no-repeat;
+	text-align:center;
+}
+
+.unSelect {
+	float: left;
+	width: 140px;
+	height: 73px;
+	margin-left: 17px;
+	background-image: url('/img/bg_btn_1.png');
+	background-repeat: no-repeat;
+	text-align:center;
+}
+
+.select span {
+	line-height: 60px;
+	color: white;
+	font-size: 26px;
+}
+
+.unSelect span {
+	line-height: 60px;
+	color: white;
+	font-size: 26px;
 }

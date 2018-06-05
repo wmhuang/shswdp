@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.arm.SelfHelpTaxServerDao">
+	<sql id="timeSpanSql">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			trunc(sysdate)-1
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			trunc(sysdate,'mm')
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			trunc(sysdate, 'yy')
+		</if>
+	</sql>
+
+	<sql id="timeSpanSql2">
+		<if test="timeSpan!=null and timeSpan==&quot;D&quot;">
+			trunc(sysdate)-1
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;M&quot;">
+			trunc(sysdate,'mm')-1
+		</if>
+		<if test="timeSpan!=null and timeSpan==&quot;Y&quot;">
+			trunc(sysdate, 'yy')
+		</if>
+	</sql>
+
+	<select id="getBusiTotalCount" parameterType="Map" resultType="Map">
+		SELECT SUM(T.ZFS) count
+		FROM YWCL.TJ_YWLTJZD T
+		WHERE to_date(T.CZSJ,'yyyy-MM-dd') >=
+		<include refid="timeSpanSql2"></include>
+	</select>
+	<select id="getKeyBusiCount" parameterType="Map" resultType="Map">
+		SELECT SUM(T.ZPRZ_FS + T.HYRZ_FS) FPRZ,
+		SUM(T.NSQD_FS) QDDY,
+		SUM(T.ZPDK_FS + T.PPDK_FS + T.TYDK_FS) FPDK
+		FROM YWCL.TJ_YWLTJZD T
+		WHERE to_date(T.CZSJ,'yyyy-MM-dd') >=
+		<include refid="timeSpanSql2"></include>
+	</select>
+	<select id="getArmLocation" parameterType="Map" resultType="Map">
+		SELECT T.DEV_BM, T.*
+		FROM YWCL.GL_SBSX T
+		WHERE T.ISUSE = '1'
+		<if test="type!=''  and type=='24H'">
+			AND T.IS_24H = '1'
+		</if>
+		<if test="type!=''  and type=='QSTB'">
+			AND T.QSTB = '全市通办'
+		</if>
+		<if test="type!=''  and type=='LTSB'">
+			AND T.BSFS = '2'
+		</if>
+		ORDER BY T.DEV_BM
+	</select>
+	<select id="getBusiRank" parameterType="Map" resultType="Map">
+		SELECT SUM(T.SB_FS) 申报数,
+		SUM(T.BS_FS) 报税数,
+		SUM(T.YJ_FS) 发票验旧,
+		SUM(T.ZPRZ_FS + T.HYRZ_FS) 发票认证,
+		SUM(T.NSQD_FS) 纳税清单打印,
+		SUM(T.GSPZ_FS) 个税凭证打印,
+		SUM(T.FPLY_FS) 发票销售,
+		SUM(T.ZPDK_FS +
+		T.PPDK_FS + T.TYDK_FS) 发票代开
+		FROM YWCL.TJ_YWLTJZD T
+		WHERE to_date(T.CZSJ,'yyyy-MM-dd') >=
+		<include refid="timeSpanSql2"></include>
+	</select>
+	<select id="getStationRankByBusi" parameterType="Map" resultType="Map">
+		SELECT SUM(T.SB_FS) 申报数,
+		SUM(T.BS_FS) 报税数,
+		SUM(T.YJ_FS) 发票验旧,
+		SUM(T.ZPRZ_FS + T.HYRZ_FS) 发票认证,
+		SUM(T.NSQD_FS) 纳税清单打印,
+		SUM(T.GSPZ_FS) 个税凭证打印,
+		SUM(T.FPLY_FS) 发票销售,
+		SUM(T.ZPDK_FS + T.PPDK_FS + T.TYDK_FS) 发票代开
+		FROM YWCL.TJ_YWLTJZD T
+		WHERE to_date(T.CZSJ,'yyyy-MM-dd') >=
+		<include refid="timeSpanSql2"></include>
+		and t.swjg_dm=#{swjgDm}
+
+
+	</select>
+
+</mapper>

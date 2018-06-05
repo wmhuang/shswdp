@@ -187,7 +187,7 @@ function getHandledCountByStationOrBusinessRank() {
 			data : {},
 			dataType : "json",
 			success : function(data) {
-				$("#getCountByStaionOrBusiness_title").html("全市通办分局TOP5");
+				$("#getCountByStaionOrBusiness_title").html("通办分局TOP5");
 				pushRankTable("getCountByStaionOrBusiness_table", 0, 2, data);
 			}
 		});
@@ -200,7 +200,7 @@ function getHandledCountByStationOrBusinessRank() {
 			data : {},
 			dataType : "json",
 			success : function(data) {
-				$("#getCountByStaionOrBusiness_title").html("全市通办业务量TOP5");
+				$("#getCountByStaionOrBusiness_title").html("通办业务受理TOP5");
 				pushRankTable("getCountByStaionOrBusiness_table", 0, 2, data);
 			}
 		});
@@ -217,11 +217,206 @@ function getOfferNumber() {
 		data : {},
 		dataType : "json",
 		success : function(data) {
+			
 			$("#offerNumber").html(forInt(data.QHSL));
 			$("#handledNumber").html(forInt(data.YBLSL));
 			$("#waitingNumber").html(forInt(data.DQDDRS));
 		}
 	});
+}
+
+//窗口开放柱状图
+function setWindowStatisticsBar(open,pause,close){
+	var option = {
+			tooltip : {
+				show : true
+			},
+			grid : {
+				y : 20,
+				x : 15,
+				y2 : 15,
+				width : 370
+			},
+			xAxis : [ {
+				show : true,
+				position : 'top',
+				type : 'category',
+				data : [ "开启", "暂停", "关闭" ],
+				axisLabel : {
+					show : false,
+					textStyle : {
+						color : 'white',
+						baseline : 'bottom',
+						fontFamily : '微软雅黑',
+						fontSize : 24
+					}
+				},
+				axisLine : {
+					//onZero:false,
+					lineStyle : {
+						color : 'rgb(79,114,185)',
+						width : '3'
+					}
+				},
+				axisTick : {
+					show : false
+				}
+			} ],
+			yAxis : [ {
+				show : false,
+				type : 'value'
+			} ],
+			series : [ {
+				type : "bar",
+				data : [open,pause,close],
+				barWidth : 56,
+				barGap : '60',
+				barCategoryGap : '60',
+				// 			barMinHeight:30, //柱状图最低显示高度
+				itemStyle : {
+					normal : {
+						color : 'rgba(87,153,255,0.7)',
+						label : {
+							show : true,
+							position : 'top',
+							formatter : function(a) {
+								return a.name;
+							},
+							textStyle : {
+								color : 'white',
+								align : 'left',
+								baseline : 'bottom',
+								fontFamily : '微软雅黑',
+								fontSize : 24
+							}
+						}
+					}
+				}
+			} ]
+		};
+	var chart = echarts.init(document.getElementById('taxServerWindowStatistics_bar'));
+	// 为echarts对象加载数据 
+	chart.setOption(option);
+}
+//窗口开放情况折线图
+function setWindowStatisticsLine(open,pause,close){
+	var option = {
+			grid : {
+				y : 20,
+				x : 60,
+				y2 : 30,
+				width : 370
+			},
+			tooltip : {
+				show : true
+
+			},
+			xAxis : {
+				type : 'category',
+				data : [ '开启', '暂停', '关闭' ],
+				axisLabel : {
+					show : true,
+					margin : 30,
+					textStyle : {
+						color : function(a) {
+							if (a == "开启") {
+								return "#FFB61C";
+							} else {
+								return "white";
+							}
+						},
+						baseline : 'bottom',
+						fontFamily : '微软雅黑',
+						fontSize : 24
+					}
+				},
+				axisLine : {
+					show : true,
+					lineStyle : {
+						color : 'white'
+					}
+				}
+			},
+			yAxis : {
+				type : 'value',
+				axisLabel : {
+					show : true,
+					textStyle : {
+						color : 'white',
+						baseline : 'bottom',
+						fontFamily : 'Impact',
+						fontSize : 16
+					}
+				},
+				splitLine : {
+					show : true,
+					lineStyle : {
+						color : 'white'
+					}
+				},
+				axisLine : {
+					show : true,
+					lineStyle : {
+						color : 'white'
+					}
+				}
+			},
+			series : [ {
+				itemStyle : {
+					normal : {
+						lineStyle : {
+							color : 'rgb(255,156,114)',
+							width : 5
+						},
+						label : {
+							show : true,
+							position : 'top',
+							textStyle : {
+								color : "#FFB61C",
+								fontFamily : 'Impact',
+								fontSize : 24
+							},
+							formatter : function(a) {
+								return forInt(a.data);
+							}
+						}
+					}
+				},
+
+				data : [open,pause,close],
+				type : 'line'
+			// 			symbol: 'pin'
+			}, {
+				itemStyle : {
+					normal : {
+						lineStyle : {
+							color : 'rgb(255,156,114)',
+							width : 5
+						},
+						label : {
+							show : true,
+							position : 'top',
+							textStyle : {
+								color : "white",
+								fontFamily : 'Impact',
+								fontSize : 24
+							},
+							formatter : function(a) {
+								return forInt(a.data);
+							}
+						}
+					}
+				},
+
+				data : [],
+				type : 'line'
+			// 	symbol: 'pin'
+			} ]
+
+		};
+	var chart = echarts.init(document.getElementById('taxServerWindowStatistics_line_div'));
+	// 为echarts对象加载数据 
+	chart.setOption(option);
 }
 
 // 办税大厅窗口情况
@@ -233,9 +428,12 @@ function getTaxServerWindowStatistics() {
 		data : {},
 		dataType : "json",
 		success : function(data) {
+			setWindowStatisticsBar(data.OPEN,data.PAUSE,data.CLOSE);
+			setWindowStatisticsLine(data.OPEN,data.PAUSE,data.CLOSE)
 			$("#openWindowNum").html(forInt(data.OPEN));
 			$("#pauseWindowNum").html(forInt(data.PAUSE));
 			$("#closeWindowNum").html(forInt(data.CLOSE));
+			
 		}
 	});
 }
@@ -282,7 +480,9 @@ function intiBqkqtbyy_bar(KQTBYYZL, BQYYZL) {
 		grid : {
 			x : 50,
 			y : 20,
+			x2 : 70,
 			y2 : 20
+			
 		},
 		xAxis : [
 
@@ -308,7 +508,6 @@ function intiBqkqtbyy_bar(KQTBYYZL, BQYYZL) {
 		series : [ {
 			name : '直接访问',
 			type : 'bar',
-			barWidth : 41.9,
 			barMinHeight : 70,
 			itemStyle : {
 				normal : {
@@ -339,3 +538,4 @@ function intiBqkqtbyy_bar(KQTBYYZL, BQYYZL) {
 	var chart = echarts.init(document.getElementById('bqkqtbyy_bar'));
 	chart.setOption(option);
 }
+

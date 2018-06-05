@@ -2,6 +2,8 @@
 var ctx = "http://" + window.location.host;
 // 全局变量 保存当前访问页面地址
 var CURRENT_PAGE_NAME = "";
+//市局主屏自动刷新时间间隔(单位:ms)
+var refreshTime = 30000;
 
 // 格式化数值（12122）为12,122的字符串
 function forInt(num) {

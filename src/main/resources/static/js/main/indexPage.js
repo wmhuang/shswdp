@@ -17,3 +17,14 @@ function getYwslqk(isIndex){
 		}
 	})
 }
+
+function getTaxServerWindowStatistics(isIndex){
+	$.ajax({
+		url : '/entityTaxServer/getTaxServerWindowStatistics',
+		success : function(result) {
+			 $('#openCount').html(forInt(result.OPEN));
+			 $('#pauseCount').html(forInt(result.PAUSE));
+			 $('#closeCount').html(forInt(result.CLOSE));
+		}
+	})
+}

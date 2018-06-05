@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="import" th:href="@{/view/common}">
 <link rel="stylesheet" type="text/css" href="../../static/css/iframePublic.css" th:href="@{/css/iframePublic.css}">
 <link rel="stylesheet" type="text/css" href="../../static/css/selfMain.css" th:href="@{/css/selfMain.css}">
 <title>自助办税服务厅</title>
-<script th:src="@{/js/main/entityTaxServer.js}"></script>
+<script th:src="@{/js/main/selfHelpTaxServer.js}"></script>
 </head>
 <body>
 	<div class="div_left">
@@ -13,18 +13,18 @@
 			<span class="white s26">业务受理总量</span>
 		</div>
 		<div class="div_ywslzl_count">
-			<span class="syellow s60">7,588</span>
+			<span class="syellow s60 h60" id="busiTotalCount"></span>
 		</div>
 		<div class="div_box1">
 			<!-- 标题 -->
 			<div class="div_box_title_change">
 				<div></div>
-				<span id="station_online_1_rank">跨区通办预约TOP5</span>
+				<span id="station_self_1_rank">业务受理总量TOP5</span>
 				<div></div>
 			</div>
 			<!-- 数据 -->
 			<div class="div_data">
-				<table class="table_data" id="station_online_1_table">
+				<table class="table_data" id="station_self_1_table">
 					<tr>
 						<td><span></span></td>
 						<td></td>
@@ -57,12 +57,12 @@
 			<!-- 标题 -->
 			<div class="div_box_title_change">
 				<div></div>
-				<span id="station_online_1_rank">跨区通办预约TOP5</span>
+				<span id="station_self_2_rank" style="color: white; font-size: 26px; line-height: 42px;"></span>
 				<div></div>
 			</div>
 			<!-- 数据 -->
 			<div class="div_data">
-				<table class="table_data" id="station_online_1_table">
+				<table class="table_data" id="station_self_2_table">
 					<tr>
 						<td><span></span></td>
 						<td></td>
@@ -103,55 +103,55 @@
 					</div>
 				</div>
 			</div>
-			<div class="div_left_bottom_div1_div2"></div>
-			<div class="div_left_bottom_div1_div3">
-				<div class="div_harf_height">
-					<div>
-						<span>事项名称1</span>
-					</div>
-					<div>
-						<span>1,221</span>
-					</div>
+			<div class="div_left_bottom_div2"></div>
+			<div class="div_left_bottom_div3">
+				<div>
+					<span id="fpdk"></span>
+					<br>
+					<span>发票代开</span>
 				</div>
-				<div class="div_harf_height">
-					<div style="">
-						<span>事项名称2</span>
-					</div>
-					<div style="">
-						<span>1,221</span>
-					</div>
+				<div>
+					<span id="fprz"></span>
+					<br>
+					<span>发票认证</span>
 				</div>
-			</div>
-			<div class="div_left_bottom_div1_div3">
-				<div class="div_harf_height">
-					<div>
-						<span>事项名称3</span>
-					</div>
-					<div>
-						<span>1,221</span>
-					</div>
-				</div>
-				<div class="div_harf_height">
-					<div>
-						<span>事项名称4</span>
-					</div>
-					<div>
-						<span>1,221</span>
-					</div>
+				<div>
+					<span id="qddy"></span>
+					<br>
+					<span>清单打印</span>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div style="float: left; width: 654px; height: 775px; margin-left: 30px; margin-top: 18px">
+	<div style="float: left; width: 654px; height: 775px; margin-left: 30px; margin-top: 18px;">
 		<div style="width: 654px; height: 73px;">
-			<div style="float: left; width: 140px; height: 73px; background-image: url('/img/bg_btn_2.png'); background-repeat: no-repeat;"></div>
-			<div style="float: left; width: 140px; height: 73px; margin-left: 17px; background-image: url('/img/bg_btn_1.png'); background-repeat: no-repeat;"></div>
-			<div style="float: left; width: 140px; height: 73px; margin-left: 17px; background-image: url('/img/bg_btn_1.png'); background-repeat: no-repeat;"></div>
-			<div style="float: left; width: 140px; height: 73px; margin-left: 17px; background-image: url('/img/bg_btn_1.png'); background-repeat: no-repeat;"></div>
+			<div class="select">
+				<span>区域分布</span>
+			</div>
+			<div class="unSelect">
+				<span>24小时</span>
+			</div>
+			<div class="unSelect">
+				<span>全市通办</span>
+			</div>
+			<div class="unSelect">
+				<span>离厅设备</span>
+			</div>
 
 		</div>
 		<div style="width: 565px; height: 683px; margin-left: 62px; background: url(/img/self_map.png)"></div>
-
 	</div>
+	<script>
+		function initChange() {
+			getBusiTotalCount();
+			getKeyBusiCount();
+			getBusiRank();
+			getStationRankByBusi();
+		}
+		$(function() {
+			initChange();
+			window.setInterval(initChange, refreshTime)
+		})
+	</script>
 </body>
 </html>

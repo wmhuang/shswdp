@@ -55,9 +55,4 @@ public interface EntityTaxServerDao {
 	// 办税大厅窗口情况
 	public Map getTaxServerWindowStatistics();
 
-	// 本区预约/跨区通办预约
-	public Map getSubscribeByAreaCount();
-
-	// 当日预约办理情况
-	public Map getSubScribeTodayStatistics();
 }

@@ -90,12 +90,6 @@ public class EntityTaxServerController {
 		return entityTaxServerService.getTaxServerWindowStatistics();
 	}
 
-	// 本区预约/跨区通办预约
-	@GetMapping(value = "/getSubscribeByAreaCount")
-	public Map getSubscribeByAreaCount() {
-		return entityTaxServerService.getSubscribeByAreaCount();
-	}
-
 	// 当日预约办理情况
 	@GetMapping(value = "/getSubScribeStatistics")
 	public Map getSubScribeTodayStatistics(HttpServletRequest request) {

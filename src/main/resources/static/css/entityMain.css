@@ -108,27 +108,27 @@
 #taxServerWindowStatistics_bar_div {
 	display: none;
 	float: left;
-	width: 100%;
+	width: 400px;
 	height: 220px;
 }
 /* 底部第二模块line div */
 #taxServerWindowStatistics_line_div {
 	display: block;
 	float: left;
-	width: 100%;
+	width: 400px;
 	height: 220px;
 }
 /* 底部第二模块bar */
 #taxServerWindowStatistics_bar {
 	float: left;
-	width: 100%;
+	width: 400px;
 	height: 165px;
 	margin-top: 5px;
 }
 /* 底部第二模块bar 底部数据量*/
 .div_bottom2_bar_count {
 	float: left;
-	width: 100%;
+	width: 400px;
 	height: 45px;
 	margin-top: 5px;
 }
